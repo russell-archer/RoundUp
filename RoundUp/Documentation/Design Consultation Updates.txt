@@ -1,0 +1,29 @@
+﻿Design Consultation Updates
+---------------------------
+
++ DONE: Removed panorama and made map main view, with separate pages for settings, about, help
++ DONE: Location map becomes main view
+	- DONE: Animated share panel
+	- DONE: Combine previously separate create session and share processes
+	- DONE: Allow sharing location with non-roundup users via Bing maps
+	- DONE: Minimized app bar
+	- DONE: roundup branding on all pages
+	- DONE: Map now full-screen
++ DONE: Invitees list - becomes a half-height panel on the main map view (tap & hold to display invitees)
+	- DONE: Add menu item/button to show invitees panel
+	- DONE: Tapping on invitee in list centers them on the map 
++ DONE: Directions - becomes a half-height panel on the main map view (tap & hold to display directions)
+	- DONE: Add menu item/button to show directions panel
+	- DONE: Tapping on direction centers that waypoint on the map 
++ DONE: Accept invite - becomes a half-height panel on the main map view
++ DONE: Settings - extract into a seperate page
++ DONE: About - extract into a separate page
++ DONE: Help - extract into a separate page
+	- DONE: Update help screenshots
++ DONE: roundup logo overlay on map (shown when menu/app bar is visible)
++ DONE: Check use of back btn closes the accept invite, directions, invitees, map controls and shre panels
++ Done: Animated sonar circle around current location, and on selected invitee
++ DONE: Remove tile title (as the tile already includes the app's name)
++ DONE: Added a "rate this app in the store" reminder
++ Update store screenshots
++ Create web page detailing changes

@@ -1,0 +1,222 @@
+﻿---------------------------------------------------------------------------------------------------
+TODO
+----
+
+*	For those that don’t have app, generate link to bing map of location and share via sms, email, twitter, etc.
+
+*	Make videos of how to use roundup and put on youtube
+
+*	Add feedback and bug report forms to web site
+
+*	Move help and about into a separate pages
+
+*	Allow the inviter to "block" an invitee in the invitee list - kicks them off the session
+
+*	Add a "Share" panorama item
+		+ Link to the store (to review)
+		+ Button to send link to the app via SMS, email, etc.
+
+*	Add a send error report feature (means adding back release build support for Logger)?
+
+*	Localization
+
+*	Watch the inviter's location. If it changes by more than (say) 100 metres, offer to cancel the session and re-start
+
+*	Allow inviter to send msg to invitee(s); Allow invitee to send msg to inviter
+
+*	Allow the inviter to change the roundup location while the session is started/active
+
+*	Auto-scale to show all invitees
+
+*	Provide a "keep map centered on invitee" function
+
+---------------------------------------------------------------------------------------------------
+Marketing:
+---------
+*	DONE: Register app at DVLUP
+
+---------------------------------------------------------------------------------------------------
+Testing
+-------
+
+*	DONE: Use the Simulation Dashboard to simulate slow connections, etc.
+
+*	DONE: Use the "Store test Kit" (right-click the project in Soluton Explorer) to determine app readiness
+		- http://msdn.microsoft.com/en-us/library/windowsphone/develop/hh394032(v=vs.105).aspx
+		- The map seems to be causing "poor response" red-flags
+		- If we comment-out the map control then responsiveness is good. Nothing to be done about that
+
+*	DONE: Setup multiple different sessions:
+		+ Make sure that there's no cross-posting of notifications
+		+ Test of cancelling one session doesn't affect the onther
+
+*	DONE: Complete Store Test Kit check-list for release 
+
+---------------------------------------------------------------------------------------------------
+DONE FOR 1.0
+------------
+
+*	Implement inviter and invitee cancellation
+
+*	When starting a new session, default to creating the RoundUp point at the inviter's current location.
+	Also allow the inviter to tap on the map where they'd like the RoundUp point to be
+	
+*	For certification requirements, must provide a preference setting to allow the user to turn off location services
+	(even if the app won't then function correctly)
+
+*	For invitees. When they accept an invite find some way of asking if they're going to be driving or walking. Enable/disable
+	features like pedestrian features, and so accordingly
+
+*	Add a Meet-Up panorama item (only for invitees). Allow the invitee to send a msg to the inviter
+	And make the Invitees and Meet-Up panorama items data bound to the IsInviter and IsInvitee properties
+
+*	Distance from invitee to meet-up point. Show distance as part of the invitee's map pushpin. Also include that info in the
+	inviter's list of invitees (GeoCoordinat.GetDistantTo(EndPoint))
+
+*	ReverseGeoCode - add to invitee's pushpins and to the meet-up point pushpin
+
+*	Add background tracking (for invitees only)
+
+*	Add timeouts to all network (i.e. RoundUpService) operations and check for no network
+
+*	Test app with the LIGHT theme :-)
+
+*	Add a menu item allowing the user to try and resume the previous session
+
+*	Add an About box, with:
+		+ Logo
+		+ Developed by "RArcher Software Ltd." (link to rarcher.net)
+		+ Link to support info
+		+ Twitter handle
+		+ App version
+		+ Link to purchase if in trial mode
+		+ Link to review/rate in store
+		+ Privacy policy (plus link to privacy policy on web)
+
+*	Add code for free trial and upgrade to paid version
+
+*	Add a purchase reminder after 10 launches; also when trial is about to expire
+
+*	Certification requirements: 
+		+ Provide a mechanism through which the user can later opt out of having the location information 
+		  accessed, uploaded or shared
+		  
+		+ Your app must periodically remind users or provide a visual indicator that location data is being 
+		  sent to any other service or person:
+
+			- For inviter: Add message to end of new session creation messagebox (NewSessionSuccess msg)
+			- For invitee: Add new messagebox to on successful accept invite (AcceptInviteSuccess msg)
+
+		+ If your app uses the Microsoft Push Notification Service, the app and the use of the Microsoft 
+		  Push Notification Service must comply with the following requirements:
+ 
+			- The app must first describe the notifications to be provided and obtain the user’s express 
+			  permission (opt-in), and must provide a mechanism through which the user can opt out of 
+			  receiving push notifications
+
+			  > Add a permission dialog similar to the location permission dialog to be shown on first use
+			  > Add a new setting to opt-out of MPNS use
+
+*	Documentation. Create text table showing, for each Session and Invitee table insert/update:
+		+ The request msg sent with the update and the rows Status column afterwards
+
+*	Roundup location change support:
+		+ Only allow the inviter to specifiy a location other than their current location
+		  as a roundup point BEFORE the session starts (additional support in v1.1)
+
+*	Add menu item to change map color
+
+*	When an invitee arrives, remove the location marker from the map and invitee list
+
+*	Add menu item to display a map control panel (overlays map), that features:
+	+ Change Zoom
+	+ Change Pitch (0..75)
+	+ Change Heading (0..360)
+	+ Turn landmarks on/off (map.LandmarksEnabled)
+	+ Turn pedestrian features on/off (map.PedestrianFeaturesEnabled)
+	+ Night color mode on/off
+	+ Change catographic mode (road, aerial, hybrid, terrain, etc.) ( map.CartographicMode = MapCartographicMode.Road, etc.)
+
+*	Handle long-running app issues (MPNS Channel URI connection status has changed unexpectedly to Disconnected)
+
+*	Support for background running:
+	Create a MessageBoxHelper class that handles all requests for displaying 
+	messageboxes and toasts (both foreground and background)
+
+*	Create a flip tile - see http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206971(v=vs.105).aspx
+
+*	Add hard-coded limit (10) on number of invitees allowed on a session. Add rules to the Azure invitee 
+	insert script. Add new response code (ERR_TOO_MANY_INVITEES)
+
+*	Bugs:
+		+ Sometimes (i.e. central London) we're not able to get the route - dubug LocationService.GetRouteAsync
+
+*	Turned on background location tracking and run under lock screen by default.
+	Decide if we want running under the lock screen and background tracking to be on by default
+	If so, review privacy statement for refs 
+
+*	Waiting for MPNS:
+		+ Add OperationHasCompleted flag that will enable/disable menu items and buttons
+		+ Add timer that goes off after 30 secs to allow user to cancel
+
+*	Add a Help panorama (similar to the accept invite panorama)
+
+*	Add map features:
+		+ Allow clicking on an invitee in the invitee list to center the map on that person
+
+*	Power-saving:
+		+ If the app's deactivated and there's no active session, turn off location sensors
+
+*	Bugs:
+		+ Check out the way we try to re-connect MPSN after the connection status unexpected changes to disconnected (after having app open for a while)
+
+*	Update the location service movement threshold if we're an invitee *driving* to the meet-up point
+		+ Handle the location change event and see if the distance between
+		  the new and previous locations are > the driving threshold, only then fire the notification
+
+*	Remove all non-critical error console.error() statements from Azure scripts
+
+*	Bugs:
+		+ Invitee session when mpns became disconnected, after re-connection the menu bar was shown as for an open (not set) session, although session completed ok
+		+ When driving we're flagging ourselves as "arrived" too soon (distance "close" calc needs update)
+		+ When MPNS disconnects and we then re-connect, seems OK for an inviter, but for an invitee internal state seems wrong - 
+		+ Re-connect MPNS after the connection status unexpected changes to disconnected (after having app open for a while)
+		+ Map is not remembering view settings
+
+*	Adjust frequency of location update notifications for long trips (> 100km?)
+
+*	Add terms and conditions text re not using for safety-critical purposes
+
+*	Provide a way to center map on curent location
+
+*	Change font size for panorama app title
+
+*	Add support details to web site
+
+*	Ensure hardware back button works correctly (needs special processing for accept invite and help panoramas)
+
+*	Fix font color on map controls - not showing with light phone theme
+
+*	Ensure that the initial get-location attempt is OFF if the user disallows use of location services (tracking should also be off)
+	Also disable features that require mpns if no permission
+
+*	Add setting for toast notifications on/off
+
+*	Change all timestamps be be universal time
+
+*	Up-scale AMS to standard model
+
+*	Get the go-live tokens from the app store to enable production use of the map control
+
+*	Screenshots for all different screen sizes
+
+*	Azure scheduled script to clean-up completed or abandoned sessions (or any session > 24hrs old)
+
+---------------------------------------------------------------------------------------------------
+DONE FOR 1.1
+------------
+
+* Added a timeout (20 secs) for the inital "getting your location" progress bar
+
+
+

@@ -1,0 +1,75 @@
+﻿This file describes the various request/response messages, notifications and important events used by RoundUp.
+
+Events
+------
+
+Event:			Connected
+Raised By:		MicrosoftPushNotificationService
+Handled By:		MainViewModel.InitMpns() PropertyChanged lamba
+Notes:			When the app starts MainViewModel.InitMps() calls MicrosoftPushNotificationService.Register() to
+				register the device with the MPNS cloud service. MNPS will raise a ChannelUriUpdated event to provide
+				a device-unique URI which we can use to communicate with it. The ChannelUriUpdated event is handled
+				by MicrosoftPushNotificationServiceOnChannelUriUpdated() and re-raised as the Connected event
+
+Event:			Connected
+Raised By:		RoundUpService
+Handled By:		MainViewModel.InitRoundUpService() PropertyChanged lamba
+
+Event:			Connected
+Raised By:		LocationService
+Handled By:		MainViewModel.InitInitLocationService() PropertyChanged lambda
+
+Event:			PushNotification
+Raised By:		MicrosoftPushNotificationService.OnHttpNotificationReceived()
+Handled By:		MainViewModel.OnMpnsPushNotification()
+
+Requests (see RoundUpRequestMessage)
+------------------------------------
+
+Message:		RoundUpRequestMessage.SessionStart		
+Actions			Start a new inviter session; Inserts a new row in the Session table
+Origin:			RoundUpService.RegisterAsInviter()
+Sent To:		RoundUp Azure Mobile Services (Session)
+Response:		RoundUpNotificationMessage.SessionStarted
+Response Data:	SessionId (session row id)
+
+Message:		RoundUpRequestMessage.InviteeJoin		
+Actions:		Joins the invitee to a session;	Inserts a new row in the Invitee table; Updates the Session table
+Origin:			RoundUpService.RegisterAsInvitee()
+Sent To:		RoundUp Azure Mobile Services (Invitee)
+Response:		RoundUpNotificationMessage.InviteeHasAccepted (sent to both Invitee and Inviter)
+Response Data:	InviteeId (invitee row id); Data (invitee name/alias); Latitude (invitee's lat); Longtitude (invitee's long)
+
+Message:		RoundUpRequestMessage.InviteeLocationUpdate		
+Actions:		Updates the Invitee table with new lat/long; Notification sent to inviter
+Origin:			RoundUpService.UpdateInviteeLocation()
+Sent To:		RoundUp Azure Mobile Services (Invitee)
+Response:		RoundUpNotificationMessage.InviteeLocationUpdate (sent to Inviter)
+Response Data:	InviteeId (invitee row id); Data (invitee name/alias); Latitude (invitee's lat); Longtitude (invitee's long)
+
+Notifications (see RoundUpNotificationMessage)
+----------------------------------------------
+
+Notification:	RoundUpNotificationMessage.SessionStarted		
+Purpose:		Signifies that a new session (for an inviter) has started
+Origin:			MPNS Cloud Service
+Sent To:		Inviter
+Handled By:		MicrosoftPushNotificationService.OnHttpNotificationReceived()
+Re-broadcast	As a PushNotification event, handled by MainViewModel.OnMpnsPushNotification()
+Data:			SessionId (row id)
+
+Notification:	RoundUpNotificationMessage.InviteeHasAccepted		
+Purpose:		Signifies that an invitee has joined a RoundUp session
+Origin:			MPNS Cloud Service
+Sent To:		Inviter and Invitee
+Handled By:		MicrosoftPushNotificationService.OnHttpNotificationReceived()
+Re-broadcast	As a PushNotification event, handled by MainViewModel.OnMpnsPushNotification()
+Data:			InviteeId (invitee row id); Data (invitee name/alias); Latitude (invitee's lat); Longtitude (invitee's long)
+
+Notification:	RoundUpNotificationMessage.InviteeLocationUpdate		
+Purpose:		Signifies that an invitee has changed locations
+Origin:			MPNS Cloud Service
+Sent To:		Inviter
+Handled By:		MicrosoftPushNotificationService.OnHttpNotificationReceived()
+Re-broadcast	As a PushNotification event, handled by MainViewModel.OnMpnsPushNotification()
+Data:			InviteeId (invitee row id); Data (invitee name/alias); Latitude (invitee's lat); Longtitude (invitee's long)

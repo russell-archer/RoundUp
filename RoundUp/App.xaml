@@ -1,0 +1,57 @@
+﻿<Application
+    x:Class="RoundUp.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:vm="clr-namespace:RoundUp.ViewModel">
+
+    <!--Application Resources-->
+    <Application.Resources>
+        <local:LocalizedStrings xmlns:local="clr-namespace:RoundUp" x:Key="LocalizedStrings"/>
+
+        <!-- 
+            The ViewModelLocator, which is responsible for supplying an 
+            instance of the correct ViewModel for a particular View
+        -->
+        <vm:ViewModelLocator x:Key="ViewModelLocator"/>
+    </Application.Resources>
+
+    <Application.ApplicationLifetimeObjects>
+        <shell:PhoneApplicationService
+            Launching="Application_Launching" 
+            Closing="Application_Closing"
+            Activated="Application_Activated" 
+            Deactivated="Application_Deactivated" 
+            RunningInBackground="Application_RunningInBackground"/> 
+    </Application.ApplicationLifetimeObjects>
+
+    <!--  
+    
+    We are a CBE (Continuoue Background Execution) app. 
+    
+    Notice above that we subscribe to the RunningInBackground event. We also configure ourselves
+    for CBE in WMAppManifest.xml by setting BackgroundExecution to "LocationTracking".
+    
+    CBE apps are listed in the background task control panel on the phone, in the list of "apps 
+    that might run in the background." Because background execution potentially consumes more 
+    battery power, the user always has the option to block any or all of these apps from running.
+    
+    To qualify as as CBE app you must:
+    
+    1. Set BackgroundExecution to LocationTracking in the manifest
+    2. Handle the RunningInBackground and set a flag. This flag should be used to carry out
+       only the minumum of operations (i.e don't try and update the UI) 
+    3. Handle being restarted (i.e. via a toast)
+    4. Actively be tracking location
+    
+    If the user turns off CBE, we disable location tracking when the app is deactivated, this 
+    makes sure the OS turns off CBE (because we're not tracking location).
+    
+    Because continuously using the GPS sensors can consume a lot of battery power, we force
+    CBE off (by turning off location tracking) if there's not an active roundup session.
+    
+    We also allow the user to set the ability for this app to run while the lock screen is engaged.
+    
+    -->
+    
+</Application>

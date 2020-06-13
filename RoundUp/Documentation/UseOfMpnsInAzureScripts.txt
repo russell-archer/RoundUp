@@ -1,0 +1,12 @@
+﻿Use of MPNS Push in Azure Scripts
+---------------------------------
+
+Notification				Script			Sent to		Contains			Notes
+---------------------------------------------------------------------------------------------------------------------------------------------------
+SessionStarted				SessionInsert	Inviter		SessionId			Wait for handling on OnMpnsPushNotification for a valid session
+SessionHasEnded				SessionUpdate	Inviter		SessionId			-
+SessionCancelledByInviter	SessionUpdate	Invitee		SessionId			-
+InviteeHasAccepted			InviteeInsert	Invitee		SessionId, etc.		Wait for handling on OnMpnsPushNotification for a valid invitee session
+InviteeLocationUpdate		InviteeUpdate	Inviter		InviteeId, etc.		-
+InviteeHasArrived			InviteeUpdate	Inviter		InviteeId			-
+InviteeHasCancelled			InviteeUpdate	Inviter		InviteeId			-

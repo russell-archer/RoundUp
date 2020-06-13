@@ -1,0 +1,1004 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptInvitePrompt" xml:space="preserve">
+    <value>Enter the roundup invite code you were sent, or paste the entire invite message into the box below:</value>
+  </data>
+  <data name="ApplicationTitle" xml:space="preserve">
+    <value>roundup</value>
+  </data>
+  <data name="BadInviteCode" xml:space="preserve">
+    <value>The invite code you provided doesn't seem to be correct. 
+
+If you received the invite via SMS or email you can copy  the entire message into the invite code box.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>cancel</value>
+  </data>
+  <data name="CannotChangeRoundUpPoint" xml:space="preserve">
+    <value>Unable to change the meetup location with the roundup cloud service. 
+
+Try again later.</value>
+  </data>
+  <data name="CannotChangeRoundUpPointTitle" xml:space="preserve">
+    <value>Can't change location</value>
+  </data>
+  <data name="CannotStartInviteeSession" xml:space="preserve">
+    <value>Unable to start a new invitee session with the roundup cloud service. 
+
+Try again later.</value>
+  </data>
+  <data name="CannotStartInviteeSessionTitle" xml:space="preserve">
+    <value>RoundUp session error</value>
+  </data>
+  <data name="CannotStartNewSession" xml:space="preserve">
+    <value>Unable to start a new session with the roundup cloud service. 
+
+Try again later.</value>
+  </data>
+  <data name="CannotStartNewSessionTitle" xml:space="preserve">
+    <value>Error starting new session</value>
+  </data>
+  <data name="ChangeRoundUpPointSuccess" xml:space="preserve">
+    <value>The roundup location has been successfully changed. 
+
+All invitees have been sent update notifications.</value>
+  </data>
+  <data name="ChangeRoundUpPointSuccessTitle" xml:space="preserve">
+    <value>Location changed OK</value>
+  </data>
+  <data name="ConnectionStatus_Connected" xml:space="preserve">
+    <value>connected</value>
+  </data>
+  <data name="ConnectionStatus_Disconnected" xml:space="preserve">
+    <value>disconnected</value>
+  </data>
+  <data name="InviteeHasAcceptedToast" xml:space="preserve">
+    <value>accepted your invite</value>
+  </data>
+  <data name="InviteeHasAcceptedToastTitle" xml:space="preserve">
+    <value>New Invitee</value>
+  </data>
+  <data name="InviteMessage" xml:space="preserve">
+    <value>You have been invited to meetup with {alias}. Tap the link to open the roundup app (or, open roundup and paste this msg into the accept invite box).</value>
+  </data>
+  <data name="MenuItem_Accept" xml:space="preserve">
+    <value>accept</value>
+  </data>
+  <data name="MenuItem_Cancel" xml:space="preserve">
+    <value>cancel</value>
+  </data>
+  <data name="MenuItem_Decline" xml:space="preserve">
+    <value>decline</value>
+  </data>
+  <data name="MenuItem_EmailInvite" xml:space="preserve">
+    <value>email invite</value>
+  </data>
+  <data name="MenuItem_Invite" xml:space="preserve">
+    <value>share</value>
+  </data>
+  <data name="MenuItem_NewRoundUpPoint" xml:space="preserve">
+    <value>set new roundup location</value>
+  </data>
+  <data name="MenuItem_RefreshLocation" xml:space="preserve">
+    <value>update location</value>
+  </data>
+  <data name="MenuItem_SmsInvite" xml:space="preserve">
+    <value>sms invite</value>
+  </data>
+  <data name="MissingInviteCode" xml:space="preserve">
+    <value>You must provide the invite code that was sent to you by the person inviting you to meetup. 
+
+If you received the invite via SMS or email you can copy the entire message into the invite code box.</value>
+  </data>
+  <data name="MissingMapAuthenticationCode" xml:space="preserve">
+    <value>Unable to get the authentication required to use mapping. 
+
+Close the app (by tapping the back button on your device) and try agin later.</value>
+  </data>
+  <data name="MissingMapAuthenticationCodeTitle" xml:space="preserve">
+    <value>Mapping error</value>
+  </data>
+  <data name="NewInviteeSuccessToast" xml:space="preserve">
+    <value>Connected to</value>
+  </data>
+  <data name="NewInviteeSuccessToastTitle" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="NewSessionSuccess" xml:space="preserve">
+    <value>A new roundup session and invite code has been created. 
+
+You can share the invite code friends who have roundup. 
+
+Anybody you invite to join you will be able to see your location until the session ends or is cancelled.</value>
+  </data>
+  <data name="NewSessionSuccessTitle" xml:space="preserve">
+    <value>New roundup session</value>
+  </data>
+  <data name="NoStartNewSessionNoLocation" xml:space="preserve">
+    <value>Your current location is unknown. Update your location and try again.
+
+To update your location, click the 'location' update button, or select the 'update location' menu item.
+
+The GPS sensors in your device may not work correctly if you are indoors, or there are a lot a high buildings nearby.</value>
+  </data>
+  <data name="NoStartNewSessionNoLocationTitle" xml:space="preserve">
+    <value>Location unknown</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>ok</value>
+  </data>
+  <data name="PaneAcceptInvite" xml:space="preserve">
+    <value>accept invite</value>
+  </data>
+  <data name="PaneDirections" xml:space="preserve">
+    <value>directions</value>
+  </data>
+  <data name="PaneInviteeList" xml:space="preserve">
+    <value>invitees</value>
+  </data>
+  <data name="ViewMain" xml:space="preserve">
+    <value>location</value>
+  </data>
+  <data name="PaneSettings" xml:space="preserve">
+    <value>settings</value>
+  </data>
+  <data name="RequestPermissionLocationServices" xml:space="preserve">
+    <value>Do you give permission for roundup to use location services on this device? 
+
+Background location tracking and the ability to run while the lock screen is engaged are turned on by default. 
+
+All location service features may be disabled or enabled at any time from the 'settings' screen.
+
+This app's use of your location is described in the app's Full Privacy Policy (see the 'about' screen).</value>
+  </data>
+  <data name="RequestPermissionLocationServicesTitle" xml:space="preserve">
+    <value>Location Permission</value>
+  </data>
+  <data name="ResourceFlowDirection" xml:space="preserve">
+    <value>LeftToRight</value>
+  </data>
+  <data name="ResourceLanguage" xml:space="preserve">
+    <value>en-US</value>
+  </data>
+  <data name="RoundUpLocationMarker" xml:space="preserve">
+    <value>Meet here</value>
+  </data>
+  <data name="SessionDoesNotExist" xml:space="preserve">
+    <value>The requested roundup session does not exist. 
+
+The session may have expired or been cancelled, or you may have entered the wrong invite code.
+
+Check the code and try again.</value>
+  </data>
+  <data name="SessionDoesNotExistTitle" xml:space="preserve">
+    <value>Session not found</value>
+  </data>
+  <data name="SessionIsNotAlive" xml:space="preserve">
+    <value>The requested roundup session is not active. 
+
+The session may have expired or been cancelled, or you may have entered the wrong invite code.
+
+Check the code and try again.</value>
+  </data>
+  <data name="SessionIsNotAliveTitle" xml:space="preserve">
+    <value>Expired roundup session</value>
+  </data>
+  <data name="SetNewRoundUpPointPrompt" xml:space="preserve">
+    <value>Click OK, then tap anywhere on the map to set a new roundup point. 
+
+Alternatively, click cancel to use your current location as the roundup point.</value>
+  </data>
+  <data name="SetNewRoundUpPointPromptTitle" xml:space="preserve">
+    <value>new roundup location</value>
+  </data>
+  <data name="SettingsPane_AliasTitle" xml:space="preserve">
+    <value>Your name/alias. Used in notifications and as part of any roundup invite. You don't need to provide your real name (this app does not send any information that personally identifies you or your device to third parties).</value>
+  </data>
+  <data name="SettingsPane_AlwaysShowsDirections" xml:space="preserve">
+    <value>Always show directions to the roundup location.</value>
+  </data>
+  <data name="SettingsPane_AlwaysShowsDirectionsInvitee" xml:space="preserve">
+    <value>when I'm invited</value>
+  </data>
+  <data name="SettingsPane_AlwaysShowsDirectionsInviter" xml:space="preserve">
+    <value>when I start the meeting</value>
+  </data>
+  <data name="SettingsPane_LocationServicesOnOff" xml:space="preserve">
+    <value>Turn location services on or off. If you turn this feature off, the app will not be able to operate.
+
+This app's use of location services is described in the Full Privacy Policy (see the 'about' screen).</value>
+  </data>
+  <data name="SettingsPane_LocationTrackingOnOff" xml:space="preserve">
+    <value>Turn location tracking on or off. If you turn this feature off, the app will not be able to operate.</value>
+  </data>
+  <data name="Settings_Alias_DefaultValue" xml:space="preserve">
+    <value>Windows Phone</value>
+  </data>
+  <data name="_MapAuthenticationToken" xml:space="preserve">
+    <value>GgRLyFHFs1z2h6zeeWjE_Q</value>
+  </data>
+  <data name="_RoundUpAzureMobileServiceKey" xml:space="preserve">
+    <value>rnKizRbmtqcMZjwCTCsoIfVgVEJWON18</value>
+  </data>
+  <data name="_RoundUpAzureMobileServiceUri" xml:space="preserve">
+    <value>https://roundup.azure-mobile.net/</value>
+  </data>
+  <data name="YouHaveArrived" xml:space="preserve">
+    <value>You have arrived</value>
+  </data>
+  <data name="YouHaveArrivedTitle" xml:space="preserve">
+    <value>Arrived!</value>
+  </data>
+  <data name="InviteeHasArrivedToast" xml:space="preserve">
+    <value>has arrived.</value>
+  </data>
+  <data name="InviteeHasArrivedToastTitle" xml:space="preserve">
+    <value>Arrival!</value>
+  </data>
+  <data name="WantToAcceptInvite" xml:space="preserve">
+    <value>Want to accept an invite from</value>
+  </data>
+  <data name="WantToAcceptInviteTitle" xml:space="preserve">
+    <value>Accept invite?</value>
+  </data>
+  <data name="SettingsPane_BackgroundExecution" xml:space="preserve">
+    <value>Allow the app to run in the background and track location. This is optional (it isn't a requirement for correct operation).</value>
+  </data>
+  <data name="SettingsPane_RunUnderLockScreen" xml:space="preserve">
+    <value>Allow the app to run when the lock screen is engaged. This is optional (it isn't a requirement for correct operation).</value>
+  </data>
+  <data name="InviteMessageShort" xml:space="preserve">
+    <value>{alias} wants to meetup. </value>
+  </data>
+  <data name="ProgressBarTextConnecting" xml:space="preserve">
+    <value>getting your location</value>
+  </data>
+  <data name="ProgressBarTextCreateSession" xml:space="preserve">
+    <value>creating roundup session</value>
+  </data>
+  <data name="ProgressBarTextJoiningSession" xml:space="preserve">
+    <value>joining roundup session</value>
+  </data>
+  <data name="ProgressBarTextChangeRoundUpPoint" xml:space="preserve">
+    <value>changing roundup location</value>
+  </data>
+  <data name="ProgressBarTextCloseSession" xml:space="preserve">
+    <value>closing roundup session</value>
+  </data>
+  <data name="CannotGetRoute" xml:space="preserve">
+    <value>Sorry, unable to get the route to the roundup point.
+
+However, {0} is located at {1}. 
+
+This location is marked on the map and is {2} away from your current location.</value>
+  </data>
+  <data name="CannotGetRouteTitle" xml:space="preserve">
+    <value>Route not found</value>
+  </data>
+  <data name="CheckingForNetworkConnection" xml:space="preserve">
+    <value>checking network connection</value>
+  </data>
+  <data name="NoNetworkConnection" xml:space="preserve">
+    <value>You are not currently connected to the network. 
+
+Try again later.</value>
+  </data>
+  <data name="WaitingForPushNotificationService" xml:space="preserve">
+    <value>waiting for push notification service</value>
+  </data>
+  <data name="MenuItem_RestoreSession" xml:space="preserve">
+    <value>restore previous session</value>
+  </data>
+  <data name="WillAttemptSessionRestore" xml:space="preserve">
+    <value>attempting to restore session</value>
+  </data>
+  <data name="UnableToRestorePreviousSession" xml:space="preserve">
+    <value>Unable to restore previous session.
+
+Create a new session and invite others to join you.</value>
+  </data>
+  <data name="UnableToRestorePreviousSessionTitle" xml:space="preserve">
+    <value>Cannot restore session</value>
+  </data>
+  <data name="SettingsPane_SessionDeadTimeout" xml:space="preserve">
+    <value>When restarting the app, if a time period greater than the following value has elapsed, no attempt will be made to restore the previous session.</value>
+  </data>
+  <data name="MinutesText" xml:space="preserve">
+    <value> minutes</value>
+  </data>
+  <data name="ViewAbout" xml:space="preserve">
+    <value>about</value>
+  </data>
+  <data name="About_DevelopedBy" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="About_DevelopedBy_Content" xml:space="preserve">
+    <value>RArcher Software Ltd.</value>
+  </data>
+  <data name="About_DevelopedBy_Link" xml:space="preserve">
+    <value>http://rarcher.azurewebsites.net/App/Rndup</value>
+  </data>
+  <data name="About_License" xml:space="preserve">
+    <value>License</value>
+  </data>
+  <data name="About_PrivacyPolicy" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="About_PrivacyPolicy_Content" xml:space="preserve">
+    <value>Full privacy policy</value>
+  </data>
+  <data name="About_PrivacyPolicy_Link" xml:space="preserve">
+    <value>http://rarcher.azurewebsites.net/App/RndupPrivacy</value>
+  </data>
+  <data name="About_RateAndReview" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="About_RateAndReview_Content" xml:space="preserve">
+    <value>Tap to review</value>
+  </data>
+  <data name="About_Support" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="About_Support_Content" xml:space="preserve">
+    <value>Support site</value>
+  </data>
+  <data name="About_Support_Link" xml:space="preserve">
+    <value>http://rarcher.azurewebsites.net/App/RndupSupport</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="AlreadyPurchased" xml:space="preserve">
+    <value>You have a FULL license to use roundup. This entitles you to free updates to this version. 
+
+Thank you very much for your support, it's much appreciated!</value>
+  </data>
+  <data name="LicenseMode_Full" xml:space="preserve">
+    <value>Full</value>
+  </data>
+  <data name="LicenseMode_MissingOrRevoked" xml:space="preserve">
+    <value>Missing or revoked</value>
+  </data>
+  <data name="LicenseMode_Trial" xml:space="preserve">
+    <value>Trial ({0} days left) - purchase</value>
+  </data>
+  <data name="LicenseMode_TrialExpired" xml:space="preserve">
+    <value>Trial (expired)</value>
+  </data>
+  <data name="MenuItem_Purchase" xml:space="preserve">
+    <value>purchase</value>
+  </data>
+  <data name="TrialHasExpired" xml:space="preserve">
+    <value>The trial period for this app has expired. 
+
+You must now either purchase roundup from the store, or uninstall it.</value>
+  </data>
+  <data name="TrialHasExpiredTitle" xml:space="preserve">
+    <value>Trial Expired</value>
+  </data>
+  <data name="About_Purchase" xml:space="preserve">
+    <value>Purchase</value>
+  </data>
+  <data name="About_Purchase_Content" xml:space="preserve">
+    <value>Tap to purchase</value>
+  </data>
+  <data name="AlreadyPurchasedTitle" xml:space="preserve">
+    <value>Full License</value>
+  </data>
+  <data name="PrivacyPolicy_Content" xml:space="preserve">
+    <value>For your privacy and security:
+
+We do NOT store or transmit any information that uniquely identifies you.
+
+We do NOT access personal information (like your name, or any Microsoft account details).
+
+We do NOT store any information (either on the phone or in our cloud-based service) that could be used by unauthorized third-parties to track your location, gain access to personal data, or identify you or your phone.
+
+The user may disable or enable location (including background location tracking) and notification services at any time from the 'settings' screen.
+
+Information related to a completed or cancelled session is deleted from the RoundUp cloud service database within 24 hours. Any session that remains incomplete after a 24-hour period will automatically be terminated and all data removed.
+
+We do require a data connection to exchange location information with the RoundUp cloud service and the Microsoft Push Notification Service.
+
+Please refer to to the Full Privacy Policy for a detailed discussion of how this app makes use of location services and push notifications, as well as details of data stored by the RoundUp cloud service.
+
+Usage terms and conditions:
+
+The roundup app is appropriate only for non-critical location tracking scenarios. Specifically, roundup should not be used as part of safety- or mission-critical operations. 
+
+The app is available free-of-charge as a fully-functional, 14-day trial. You are strongly encouraged to try the app before you purchase in order to test operation with your specific device and in your geographic location. 
+
+Please review the full terms and conditions of use for roundup (see the link at the botton of this screen).</value>
+  </data>
+  <data name="PurchaseReminder" xml:space="preserve">
+    <value>You are running the trial version of this app. 
+
+The trial period will expire in {0} days, after which you must either purchase or uninstall the app.</value>
+  </data>
+  <data name="PurchaseReminderTitle" xml:space="preserve">
+    <value>Trial Reminder</value>
+  </data>
+  <data name="AcceptInviteSuccess" xml:space="preserve">
+    <value>Your are now connected to {0}. 
+
+They will be able to see your location until the session ends (when you arrive), or you cancel.</value>
+  </data>
+  <data name="AcceptInviteSuccessTitle" xml:space="preserve">
+    <value>Connected</value>
+  </data>
+  <data name="RequestPermissionMpns" xml:space="preserve">
+    <value>Do you give permission for roundup to use notifications sent by the Microsoft push notification system? 
+
+Notifications contain data related to your location, and are described in the app's Full Privacy Policy (see the 'about' screen). 
+
+Notifications may be turned on/off in the 'settings' screen.</value>
+  </data>
+  <data name="RequestPermissionMpnsTitle" xml:space="preserve">
+    <value>Notification Permission</value>
+  </data>
+  <data name="SettingsPane_MpnsOnOff" xml:space="preserve">
+    <value>Turn push notifications on or off. If you turn this feature off, the app will not be able to operate. 
+
+This app's use of push notifications is described in the Full Privacy Policy (see the 'about' screen)</value>
+  </data>
+  <data name="BadInviteCodeTitle" xml:space="preserve">
+    <value>Bad invite code</value>
+  </data>
+  <data name="MissingInviteeName" xml:space="preserve">
+    <value>Invitee</value>
+  </data>
+  <data name="AllInviteesArrived" xml:space="preserve">
+    <value>All invitees arrived.</value>
+  </data>
+  <data name="EndSession" xml:space="preserve">
+    <value>End this session?</value>
+  </data>
+  <data name="InviteEmailSubject" xml:space="preserve">
+    <value>roundup invite</value>
+  </data>
+  <data name="RouteInstructionEta" xml:space="preserve">
+    <value>Estimated time of arrival {0}</value>
+  </data>
+  <data name="_MapApplicationId" xml:space="preserve">
+    <value>0c4920e4-ffa6-4e77-bb93-5d490e832204</value>
+  </data>
+  <data name="CancelInviteeSession" xml:space="preserve">
+    <value>Cancel your participation in the current roundup session. 
+
+Are you sure?</value>
+  </data>
+  <data name="CancelInviterSession" xml:space="preserve">
+    <value>Cancel the current roundup session? 
+
+If you do this a notification will be sent to all invitees, cancelling their participation in the session.
+
+Are you sure?</value>
+  </data>
+  <data name="CancelSessionTitle" xml:space="preserve">
+    <value>Cancel Session</value>
+  </data>
+  <data name="ProgressBarTextCancelSession" xml:space="preserve">
+    <value>cancelling session</value>
+  </data>
+  <data name="CannotCancelSession" xml:space="preserve">
+    <value>There was an error cancelling the session. Some invitees may not have received a notification.</value>
+  </data>
+  <data name="CannotCancelSessionTitle" xml:space="preserve">
+    <value>Error cancelling session</value>
+  </data>
+  <data name="SessionHasBeenCancelled" xml:space="preserve">
+    <value>The session has been successfully cancelled.</value>
+  </data>
+  <data name="SessionHasBeenCancelledTitle" xml:space="preserve">
+    <value>Session cancelled.</value>
+  </data>
+  <data name="AllInviteesHaveCancelled" xml:space="preserve">
+    <value>All invitees have cancelled their participation in the roundup session.
+
+Do you want to end the session now?</value>
+  </data>
+  <data name="AllInviteesHaveCancelledTitle" xml:space="preserve">
+    <value>No invitees</value>
+  </data>
+  <data name="InviteeHasCancelledToast" xml:space="preserve">
+    <value>has cancelled their participation in this roundup session.</value>
+  </data>
+  <data name="InviteeHasCancelledToastTitle" xml:space="preserve">
+    <value>Cancellation</value>
+  </data>
+  <data name="MissingInviterName" xml:space="preserve">
+    <value>The inviter</value>
+  </data>
+  <data name="SessionHasBeenCancelledByInviter" xml:space="preserve">
+    <value>has cancelled the current roundup session - sorry!</value>
+  </data>
+  <data name="SessionHasBeenCancelledByInviterTitle" xml:space="preserve">
+    <value>Session cancelled</value>
+  </data>
+  <data name="MpnsLimitExceeded" xml:space="preserve">
+    <value>The Microsoft push notification system has indicated that this app has received too many notifications within a 24-period. 
+
+Try the operation again later.</value>
+  </data>
+  <data name="MpnsLimitExceededTitle" xml:space="preserve">
+    <value>MPNS Error</value>
+  </data>
+  <data name="MenuItem_ToggleMapControlPanel" xml:space="preserve">
+    <value>show map controls</value>
+  </data>
+  <data name="About_Version_Content" xml:space="preserve">
+    <value>1.0</value>
+  </data>
+  <data name="AllInviteesArrivedSessionComplete" xml:space="preserve">
+    <value>Session completed.</value>
+  </data>
+  <data name="AllInviteesHaveCancelledToast" xml:space="preserve">
+    <value>All invitees have cancelled.</value>
+  </data>
+  <data name="AllInviteesHaveCancelledToastTitle" xml:space="preserve">
+    <value>Session ended</value>
+  </data>
+  <data name="TooManyInvitees" xml:space="preserve">
+    <value>Sorry, the maximum number of invitees permitted on a session has been reached.</value>
+  </data>
+  <data name="TooManyInviteesTitle" xml:space="preserve">
+    <value>Unable to join session</value>
+  </data>
+  <data name="MenuItem_RefreshLocationShort" xml:space="preserve">
+    <value>location</value>
+  </data>
+  <data name="MpnsTimedOut" xml:space="preserve">
+    <value>Unable to complete the operation. The Microsoft push notification service is not responding.
+
+Try the operation again later.</value>
+  </data>
+  <data name="MpnsTimedOutTitle" xml:space="preserve">
+    <value>MPNS Error</value>
+  </data>
+  <data name="MpnsChannelErrorTitle" xml:space="preserve">
+    <value>MPNS Error</value>
+  </data>
+  <data name="MpnsChannelError_ChannelOpenFailed" xml:space="preserve">
+    <value>Channel open failed. 
+
+This error was issued by the Microsoft push notification service. It indicates that the device could not be connected to the notification service.
+
+This error can be caused if the phone's date and time is not correctly set.
+
+It is recommended that you quit (by using the back button on the device) and then re-open the app.
+
+If you continue to get this error you may wish to review the roundup support page (see the link in the 'about' screen), which has specific advice on this error</value>
+  </data>
+  <data name="MpnsChannelError_NotificationRateTooHigh" xml:space="preserve">
+    <value>Notification rate is too high.
+
+This error was issued by the Microsoft push notification service. It indicates that our roundup cloud service is requesting too many notifications be sent to this app.
+
+It is recommended that you quit (by using the back button on the device) and then re-open the app.
+
+If you continue to get this error you may wish to review the roundup support page (see the link in the 'about' screen), which has specific advice on this error</value>
+  </data>
+  <data name="MpnsChannelError_PowerLevelChanged" xml:space="preserve">
+    <value>Power level too low. 
+
+This error was issued by the Microsoft push notification service. It indicates that the power-level has dropped too low for the notification service to be used.
+
+It is recommended that you quit (by using the back button on the device), connect the device to a power source, and then re-open the app.
+
+If you continue to get this error you may wish to review the roundup support page (see the link in the 'about' screen), which has specific advice on this error</value>
+  </data>
+  <data name="MpnsChannelError_Unknown" xml:space="preserve">
+    <value>General failure. 
+
+This error was issued by the Microsoft push notification service. It indicates that an unknown or notification formatting-related problem has been encountered.
+
+It is recommended that you quit (by using the back button on the device) and then re-open the app.
+
+If you continue to get this error you may wish to review the roundup support page (see the link in the 'about' screen), which has specific advice on this error</value>
+  </data>
+  <data name="MenuItem_Help" xml:space="preserve">
+    <value>help</value>
+  </data>
+  <data name="ViewHelp" xml:space="preserve">
+    <value>help</value>
+  </data>
+  <data name="CloseHelp" xml:space="preserve">
+    <value>close help</value>
+  </data>
+  <data name="HelpText01" xml:space="preserve">
+    <value>Create a new roundup session.</value>
+  </data>
+  <data name="HelpText02" xml:space="preserve">
+    <value>Tell your friends you want to meet up.</value>
+  </data>
+  <data name="HelpText03" xml:space="preserve">
+    <value>See your friends on the map.</value>
+  </data>
+  <data name="HelpText04" xml:space="preserve">
+    <value>Got an invite? Just tap the link.</value>
+  </data>
+  <data name="HelpText05" xml:space="preserve">
+    <value>See where to meetup.</value>
+  </data>
+  <data name="HelpText06" xml:space="preserve">
+    <value>View walking or driving instructions.</value>
+  </data>
+  <data name="MapCtrlPanel_DaylightMode" xml:space="preserve">
+    <value>Daylight mode</value>
+  </data>
+  <data name="MapCtrlPanel_Heading" xml:space="preserve">
+    <value>Heading</value>
+  </data>
+  <data name="MapCtrlPanel_Landmarks" xml:space="preserve">
+    <value>Landmarks</value>
+  </data>
+  <data name="MapCtrlPanel_PedestrianFeatures" xml:space="preserve">
+    <value>Pedestrian features</value>
+  </data>
+  <data name="MapCtrlPanel_Pitch" xml:space="preserve">
+    <value>Pitch</value>
+  </data>
+  <data name="MapCtrlPanel_ViewMode" xml:space="preserve">
+    <value>View mode</value>
+  </data>
+  <data name="MapCtrlPanel_Zoom" xml:space="preserve">
+    <value>Zoom</value>
+  </data>
+  <data name="MapViewMode_Aerial" xml:space="preserve">
+    <value>Aerial</value>
+  </data>
+  <data name="MapViewMode_Hybrid" xml:space="preserve">
+    <value>Hybrid</value>
+  </data>
+  <data name="MapViewMode_Road" xml:space="preserve">
+    <value>Road</value>
+  </data>
+  <data name="MapViewMode_Terrain" xml:space="preserve">
+    <value>Terrain</value>
+  </data>
+  <data name="CenterInviteeOnMap" xml:space="preserve">
+    <value>center on map</value>
+  </data>
+  <data name="InviteeIsCentered" xml:space="preserve">
+    <value>{0} is centered on the map.</value>
+  </data>
+  <data name="InviteeIsCenteredTitle" xml:space="preserve">
+    <value>Invitee centered</value>
+  </data>
+  <data name="TileNoSession" xml:space="preserve">
+    <value>roundup : no session</value>
+  </data>
+  <data name="TileNoSessionMsg" xml:space="preserve">
+    <value>Invite your friends to meetup</value>
+  </data>
+  <data name="TileNoSessionWideMsg" xml:space="preserve">
+    <value>Start a new roundup session and invite your friends to join you</value>
+  </data>
+  <data name="TileSessionInProgress" xml:space="preserve">
+    <value>roundup : tracking</value>
+  </data>
+  <data name="TileSessionInProgressInvitee" xml:space="preserve">
+    <value>Meeting up with </value>
+  </data>
+  <data name="TileSessionInProgressNoInvitees" xml:space="preserve">
+    <value>Nobody has accepted your invite.</value>
+  </data>
+  <data name="TileSessionInProgressWithInvitees" xml:space="preserve">
+    <value> friends have accepted your invite.</value>
+  </data>
+  <data name="LongJourney" xml:space="preserve">
+    <value>You are attempting to use roundup for a long journey of {0} km.
+
+Too avoid sending a large number of push notifications, progress updates will only be broadcast to the person who invited you every {1} km.</value>
+  </data>
+  <data name="LongJourneyTitle" xml:space="preserve">
+    <value>Long journey</value>
+  </data>
+  <data name="CancelUnstartedSession" xml:space="preserve">
+    <value>Cancel the current roundup session? 
+
+We are currently waiting for a push notification containing the session ID (the session has not finished the start-up process).
+
+Are you sure?</value>
+  </data>
+  <data name="NoInviteCode" xml:space="preserve">
+    <value>Sorry, the roundup cloud service has not yet delivered the necessary invite code to us.
+
+Try again later.</value>
+  </data>
+  <data name="NoInviteCodeTitle" xml:space="preserve">
+    <value>No invite code</value>
+  </data>
+  <data name="WaitingForNotification_CancelInvitee" xml:space="preserve">
+    <value>waiting for notification (cancel invitee)</value>
+  </data>
+  <data name="WaitingForNotification_CancelSession" xml:space="preserve">
+    <value>waiting for notification (cancel session)</value>
+  </data>
+  <data name="WaitingForNotification_InviteeId" xml:space="preserve">
+    <value>waiting for notification (new invitee)</value>
+  </data>
+  <data name="WaitingForNotification_SessionId" xml:space="preserve">
+    <value>waiting for notification (new session)</value>
+  </data>
+  <data name="About_TandC_Content" xml:space="preserve">
+    <value>Full usage terms and conditions</value>
+  </data>
+  <data name="About_TandC_Link" xml:space="preserve">
+    <value>http://rarcher.azurewebsites.net/App/RndupTerms</value>
+  </data>
+  <data name="MenuItem_CenterCurrentLocation" xml:space="preserve">
+    <value>Center location on map</value>
+  </data>
+  <data name="KeyServicesAreOff" xml:space="preserve">
+    <value>Unable to proceed with operation because the key services listed below are turned off.
+
+You may turn these services on from the 'settings' screen.
+
+</value>
+  </data>
+  <data name="KeyServicesAreOffTitle" xml:space="preserve">
+    <value>Services disabled</value>
+  </data>
+  <data name="LocationServicesDisabled" xml:space="preserve">
+    <value>Location services have been disabled. 
+
+You may turn location services on from the 'settings' screen.</value>
+  </data>
+  <data name="SettingsPane_ToastOnOff" xml:space="preserve">
+    <value>Allow toast notifications when the app is running in the background.
+
+These notifcations tell you when somebody has joined a roundup session, you've arrived, etc.</value>
+  </data>
+  <data name="TileSessionInProgressWithOneInvitee" xml:space="preserve">
+    <value>1 friend has accepted your invite.</value>
+  </data>
+  <data name="MenuItem_Sync" xml:space="preserve">
+    <value>sync device notifications</value>
+  </data>
+  <data name="CannotGetLocation" xml:space="preserve">
+    <value>We can't get your location right now, but we'll keep trying in the background.
+
+The GPS sensors in your device may not work correctly if you are indoors, or there are a lot a high buildings nearby.</value>
+  </data>
+  <data name="CannotGetLocationTitle" xml:space="preserve">
+    <value>Cannot get your location</value>
+  </data>
+  <data name="PaneShare" xml:space="preserve">
+    <value>share</value>
+  </data>
+  <data name="_AppLinkInStore" xml:space="preserve">
+    <value>http://windowsphone.com/s?appId=0c4920e4-ffa6-4e77-bb93-5d490e832204</value>
+  </data>
+  <data name="MenuItem_ShareLocationNoRoundUp" xml:space="preserve">
+    <value>share location via web</value>
+  </data>
+  <data name="BingMapsUri" xml:space="preserve">
+    <value>http://www.bing.com/maps/?v=2&amp;cp={0}~{1}&amp;lvl=18&amp;sp=point.{0}_{1}_{2}_{3}</value>
+    <comment>Example: 
+http://www.bing.com/maps/?v=2&amp;cp=51.42912~-0.32924&amp;lvl=18&amp;sp=point.51.42912_-0.32924_37%20Cambridge%20Road_Meetup%20Here</comment>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>No address available</value>
+  </data>
+  <data name="ViewSettings" xml:space="preserve">
+    <value>settings</value>
+  </data>
+  <data name="BingMapsPostamble" xml:space="preserve">
+    <value>
+
+For an even better experience, get roundup from the Windows Phone Store:
+
+</value>
+  </data>
+  <data name="BingMapsPreamble" xml:space="preserve">
+    <value>{alias} is sharing a location with you with via roundup and Bing maps:
+
+</value>
+  </data>
+  <data name="ShareClipboard" xml:space="preserve">
+    <value>clipboard</value>
+  </data>
+  <data name="ShareComment" xml:space="preserve">
+    <value>share your location</value>
+  </data>
+  <data name="ShareEmail" xml:space="preserve">
+    <value>email</value>
+  </data>
+  <data name="ShareSms" xml:space="preserve">
+    <value>sms</value>
+  </data>
+  <data name="ShareTargetHasRoundUp" xml:space="preserve">
+    <value>the person I'm sharing with has roundup</value>
+  </data>
+  <data name="BingMapsViaClipboard" xml:space="preserve">
+    <value>A link which can show your current location using Bing Maps has been added to the clipboard. 
+
+You can send this link to a friend so they can view your current location using any device that can access the web. </value>
+  </data>
+  <data name="BingMapsViaEmail" xml:space="preserve">
+    <value>An email message which includes a link to show your current location using Bing Maps has been created. 
+
+You can send this link to a friend so they can view your current location using any device that can access the web.
+
+Click OK to view the message in the email composer and select the person(s) you wish to send it to.</value>
+  </data>
+  <data name="BingMapsViaSms" xml:space="preserve">
+    <value>An SMS message which includes a link to show your current location using Bing Maps has been created. 
+
+You can send this link to a friend so they can view your current location using any device that can access the web.
+
+Click OK to view the message in the SMS message composer and select the person(s) you wish to send it to.</value>
+  </data>
+  <data name="BingMapsViaXTitle" xml:space="preserve">
+    <value>Share via Bing Maps</value>
+  </data>
+  <data name="ShareViaClipboard" xml:space="preserve">
+    <value>A roundup invite code has been added to the clipboard. 
+
+You can send this code to friends that have roundup. Once they accept your invite you'll be able to see them on the map, and they'll be able to see your location on their map.</value>
+  </data>
+  <data name="ShareViaClipboardTitle" xml:space="preserve">
+    <value>Share via roundup</value>
+  </data>
+  <data name="MenuItem_ShowDirections" xml:space="preserve">
+    <value>directions</value>
+  </data>
+  <data name="MenuItem_ShowInvitees" xml:space="preserve">
+    <value>invitees</value>
+  </data>
+  <data name="MenuItem_Directions" xml:space="preserve">
+    <value>show directions</value>
+  </data>
+  <data name="NoDirections" xml:space="preserve">
+    <value>There are no route directions to view.</value>
+  </data>
+  <data name="NoDirectionsTitle" xml:space="preserve">
+    <value>No directions</value>
+  </data>
+  <data name="NoInvitees" xml:space="preserve">
+    <value>No invitees have accepted your invitation.</value>
+  </data>
+  <data name="NoInviteesTitle" xml:space="preserve">
+    <value>No invitees</value>
+  </data>
+  <data name="CantCreateNewSessionWhenInvitee" xml:space="preserve">
+    <value>You can't create a new session because you are already an invitee in an existing roundup session.
+
+You may share your location using Bing maps via SMS or email while you are participating in a roundup session. 
+
+Alternatively, cancel your participation in the current session, then create a new session.</value>
+  </data>
+  <data name="CantCreateNewSessionWhenInviteeTitle" xml:space="preserve">
+    <value>Can't create new session</value>
+  </data>
+  <data name="RateAppReminder" xml:space="preserve">
+    <value>You've been using roundup for a while now. We really hope you're finding it useful.
+
+We'd love it if you'd give us a rating in the store. This will help spread the word about roundup, and your feedback will help us make things even better in future versions!
+
+Click 'ok' to rate this app in the store, or click 'cancel' to continue using roundup.
+
+You will not be reminded again to rate this app - we'd hate to nag!!</value>
+  </data>
+  <data name="RateAppReminderTitle" xml:space="preserve">
+    <value>Enjoying roundup?</value>
+  </data>
+</root>

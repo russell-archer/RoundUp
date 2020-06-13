@@ -1,0 +1,16 @@
+﻿Notes on scheduled deleting of Azure data
+-----------------------------------------
+
+Completed sessions are indicated by one of:
+
+* Session table SessionStatusId column = SessionHasEnded (CloseSessionAsync)
+* Session table SessionStatusId column = SessionCancelledByInviter (CancelSessionAsync)
+
+When the Azure scheduled task script finds a Session row where the Session table Timestamp column 
+value is >= 24 hours old (all timestamps used by the system are universal time):
+
+	* The Session row is not deleted, but marked as "dead" by setting SessionStatusId = SessionDead
+	* All Invitee rows where the sid column has the same value as the Session row id column are deleted
+	* All RoundUpNotification rows where the SessionId column has the same value as the Session row id column are deleted
+
+The Azure scheduled task script is scheduled to as follows: every xxx

@@ -1,0 +1,200 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="RoundUp.View.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True"
+    toolkit:TiltEffect.IsTiltEnabled="True">
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+
+    <!-- Get the relevant ViewModel for this View via the ViewModelLocator -->
+    <phone:PhoneApplicationPage.DataContext>
+        <Binding Source="{StaticResource ViewModelLocator}" Path="SettingsViewModel" />
+    </phone:PhoneApplicationPage.DataContext>
+    
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <Image Margin="5,0,0,0" Source="/Assets/PageLogo.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <TextBlock Text="{Binding Path=LocalizedResources.ViewSettings, Source={StaticResource LocalizedStrings}}" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+        </StackPanel>
+
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <ScrollViewer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="250" />
+                        <RowDefinition Height="250" />
+                        <RowDefinition Height="240" />
+                        <RowDefinition Height="170" />
+                        <RowDefinition Height="190" />
+                        <RowDefinition Height="190" />
+                        <RowDefinition Height="290" />
+                        <RowDefinition Height="230" />
+                        <RowDefinition Height="250" />
+                        <RowDefinition Height="150" />
+                    </Grid.RowDefinitions>
+
+                    <!-- Name/alias -->
+                    <StackPanel Grid.Row="0" >
+                        <TextBlock 
+                                TextWrapping="Wrap"
+                                Text="{Binding Path=LocalizedResources.SettingsPane_AliasTitle, Source={StaticResource LocalizedStrings}}" 
+                                VerticalAlignment="Center"/>
+
+                        <TextBox 
+                                Margin="0,10,0,0" 
+                                MaxLength="50"
+                                Text="{Binding SettingsAlias, Mode=TwoWay}" 
+                                VerticalAlignment="Center"/>
+                    </StackPanel>
+
+                    <!-- Turn MPNS on/off -->
+                    <StackPanel Grid.Row="1" >
+                        <TextBlock 
+                                TextWrapping="Wrap"
+                                Text="{Binding Path=LocalizedResources.SettingsPane_MpnsOnOff, Source={StaticResource LocalizedStrings}}" 
+                                VerticalAlignment="Center"/>
+
+                        <toolkit:ToggleSwitch 
+                                IsChecked="{Binding SettingsMpnsOn, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <!-- Turn location services on/off -->
+                    <StackPanel Grid.Row="2" >
+                        <TextBlock 
+                                TextWrapping="Wrap"
+                                Text="{Binding Path=LocalizedResources.SettingsPane_LocationServicesOnOff, Source={StaticResource LocalizedStrings}}" 
+                                VerticalAlignment="Center"/>
+
+                        <toolkit:ToggleSwitch 
+                                IsChecked="{Binding SettingsLocationServicesOn, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <!-- Turn location tracking on/off -->
+                    <StackPanel Grid.Row="3">
+                        <TextBlock
+                                Margin="0,10,10,0"
+                                TextWrapping="Wrap"                                
+                                Text="{Binding Path=LocalizedResources.SettingsPane_LocationTrackingOnOff, Source={StaticResource LocalizedStrings}}"/>
+
+                        <toolkit:ToggleSwitch 
+                                IsChecked="{Binding SettingsTrackCurrentLocation, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <!-- Run under lock screen -->
+                    <StackPanel Grid.Row="4">
+                        <TextBlock 
+                                TextWrapping="Wrap" 
+                                Text="{Binding Path=LocalizedResources.SettingsPane_RunUnderLockScreen, Source={StaticResource LocalizedStrings}}" />
+
+                        <toolkit:ToggleSwitch 
+                                IsChecked="{Binding SettingsRunUnderLockScreenOn, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <!-- CBE (Continuous Background Execution) -->
+                    <StackPanel Grid.Row="5">
+                        <TextBlock 
+                                TextWrapping="Wrap" 
+                                Text="{Binding Path=LocalizedResources.SettingsPane_BackgroundExecution, Source={StaticResource LocalizedStrings}}" />
+
+                        <toolkit:ToggleSwitch 
+                                IsChecked="{Binding SettingsBackgroundExecutionOn, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <!-- Always show directions -->
+                    <StackPanel Grid.Row="6">
+                        <TextBlock Text="{Binding Path=LocalizedResources.SettingsPane_AlwaysShowsDirections, Source={StaticResource LocalizedStrings}}" />
+
+                        <TextBlock
+                                Margin="0,10,10,0"
+                                TextAlignment="Right"
+                                Text="{Binding Path=LocalizedResources.SettingsPane_AlwaysShowsDirectionsInviter, Source={StaticResource LocalizedStrings}}"/>
+
+                        <toolkit:ToggleSwitch 
+                                IsChecked="{Binding SettingsShowDirectionsInviter, Mode=TwoWay}" />
+
+                        <TextBlock 
+                                Margin="0,0,10,0"
+                                TextAlignment="Right"
+                                Text="{Binding Path=LocalizedResources.SettingsPane_AlwaysShowsDirectionsInvitee, Source={StaticResource LocalizedStrings}}"/>
+
+                        <toolkit:ToggleSwitch 
+                                IsChecked="{Binding SettingsShowDirectionsInvitee, Mode=TwoWay}" />
+                    </StackPanel>
+
+                    <!-- Session dead time -->
+                    <StackPanel Grid.Row="7">
+                        <TextBlock 
+                                TextWrapping="Wrap" 
+                                Text="{Binding Path=LocalizedResources.SettingsPane_SessionDeadTimeout, Source={StaticResource LocalizedStrings}}" />
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock 
+                                    Text="{Binding ElementName=SessionDeadTimeSlider, Path=Value}"/>
+
+                            <TextBlock 
+                                    Text="{Binding Path=LocalizedResources.MinutesText, Source={StaticResource LocalizedStrings}}"/>
+                        </StackPanel>
+
+                        <Slider 
+                                x:Name="SessionDeadTimeSlider" 
+                                Minimum="1"
+                                Maximum="20"
+                                SmallChange="1" 
+                                Value="{Binding SettingsSessionDeadTimeout, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <!-- Turn toast on/off -->
+                    <StackPanel Grid.Row="8" >
+                        <TextBlock 
+                                TextWrapping="Wrap"
+                                Text="{Binding Path=LocalizedResources.SettingsPane_ToastOnOff, Source={StaticResource LocalizedStrings}}" 
+                                VerticalAlignment="Center"/>
+
+                        <toolkit:ToggleSwitch 
+                                IsChecked="{Binding SettingsToastOn, Mode=TwoWay}"/>
+                    </StackPanel>
+
+                    <!-- Spacer -->
+                    <StackPanel Grid.Row="9" />
+
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>

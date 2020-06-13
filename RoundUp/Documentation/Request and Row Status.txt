@@ -1,0 +1,24 @@
+﻿
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+| Table	  | Action | RequestMessageId			  | Description		     | RoundUpService Reference      | Row status after insert/update                  | Notification Sent from Azure                |
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+| Session | Insert | SessionStart             (1) | Start a new session  | RegisterAsInviterAsync	     | SessionStatusId = SessionStarted            (1) | SessionStarted            (to inviter)      |
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+| Session | Update | SessionHasEnded          (9) | All invitees arrived | CloseSessionAsync		     | SessionStatusId = SessionHasEnded           (5) | SessionHasEnded	       (to inviter)      |
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+| Session | Update | UpdateInviterChannelUri (10) | Update channel uri   | UpdateInviterChannelUriAsync  | SessionStatusId = SessionActive             (2) | None                      (n/a)             |
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+| Session | Update | SessionCancel            (2) | Cancel inviter sessn | CancelSessionAsync            | SessionStatusId = SessionCancelledByInviter (3) | SessionCancelledByInviter (to all invitees) |
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+| Invitee | Insert | InviteeJoin              (3) | Invitee accepted     | RegisterAsInviteeAsync        | InviteeStatusId = InviteeHasAccepted        (2) | InviteeHasAccepted        (to invitee)      |
+|         |        |                              |                      |                               | SessionStatusId = SessionActive             (2) | InviteeHasAccepted        (to inviter)      |
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+| Invitee | Update | InviteeLocationUpdate    (5) | Location update      | UpdateInviteeLocationAsync    | InviteeStatusId = InviteeIsEnRoute          (6) | InviteeLocationUpdate     (to inviter)      |
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+| Invitee | Update | InviteeHasArrived        (8) | Invitee arrived      | InviteeHasArrivedAsync        | InviteeStatusId = InviteeHasArrived         (5) | InviteeHasArrived         (to inviter)      |
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+| Invitee | Update | UpdateInviteeChannelUri (11) | Update channel uri   | UpdateInviteeChannelUriAsync  | InviteeStatusId = InviteeIsEnRoute          (6) | None                      (n/a)             |
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+| Invitee | Update | InviteeCancel            (4) | Cancel invitee sesan | CancelInviteeSessionAsync     | InviteeStatusId = InviteeHasCancelled       (4) | InviteeHasCancelled       (to inviter)      |
++---------+--------+------------------------------+----------------------+-------------------------------+-------------------------------------------------+---------------------------------------------+
+

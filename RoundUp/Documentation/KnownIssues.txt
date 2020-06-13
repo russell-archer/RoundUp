@@ -1,0 +1,13 @@
+﻿Know Issues
+-----------
+
+*	Failure to connect to MPNS.
+
+	Network routing issues can prevent the device from connecting to the service.  
+	The most common problem is related to proxy configuration. The phone uses Web 
+	Proxy Auto Detect (WPAD) protocol to retrieve a proxy configuration script.  
+	Note that the phone only uses the first proxy returned by the script.  
+	Alternately, you can manually configure a proxy for a WiFi network. 
+	The Push client cannot work behind a SOCKS proxy. If the device transitions 
+	to a network that requires a SOCKS proxy, it will not be able to use the 
+	MPNS service.

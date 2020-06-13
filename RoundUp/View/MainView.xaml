@@ -1,0 +1,1154 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:cnv="clr-namespace:RArcher.Phone.Toolkit.Converter;assembly=RArcher.Phone.Toolkit"
+    xmlns:model="clr-namespace:RoundUp.Model"
+    xmlns:interactivity="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+    xmlns:cimbalino="clr-namespace:Cimbalino.Phone.Toolkit.Behaviors;assembly=Cimbalino.Phone.Toolkit"
+    xmlns:controls="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
+    xmlns:maptk="clr-namespace:Microsoft.Phone.Maps.Toolkit;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
+    xmlns:es="clr-namespace:Microsoft.Expression.Shapes;assembly=Microsoft.Expression.Drawing" 
+    xmlns:System="clr-namespace:System;assembly=mscorlib"
+    xmlns:eventToCommand="clr-namespace:RArcher.Phone.Toolkit.EventToCommand;assembly=RArcher.Phone.Toolkit"
+    x:Class="RoundUp.View.MainView"
+    mc:Ignorable="d"
+    SupportedOrientations="Portrait" 
+    Orientation="Portrait"
+    shell:SystemTray.IsVisible="True"
+    toolkit:TiltEffect.IsTiltEnabled="True">
+
+    <phone:PhoneApplicationPage.Resources>
+
+        <cnv:BooleanToVisibilityConverter x:Key="Bool2VisibilityConverter"/>
+        <cnv:BooleanToVisibilityInverterConverter x:Key="Bool2VisibilityInverterConverter"/>
+        <cnv:BooleanToColorModeConverter x:Key="Bool2ColorModeConverter"/>
+        <cnv:BooleanToCartographicModeRoadConverter x:Key="Bool2MapRoadConverter"/>
+        <cnv:BooleanToCartographicModeAerialConverter x:Key="Bool2MapAerialConverter"/>
+        <cnv:BooleanToCartographicModeTerrainConverter x:Key="Bool2MapTerrainConverter"/>
+        <cnv:BooleanToCartographicModeHybridConverter x:Key="Bool2MapHybridConverter"/>
+
+        <CollectionViewSource 
+            x:Key="InviteeMarkersItemSource" 
+            Source="{Binding Invitees}"/>
+
+        <DataTemplate x:Key="InviteesDataTemplate">
+            <StackPanel d:DataContext="{Binding Invitees}">
+        		<TextBlock 
+        			Text="{Binding CombinedNameAndDistance}" 
+        			TextAlignment="Left" 
+        			FontSize="26" 
+        			Margin="5"
+        			Foreground="DarkOrange"
+        			HorizontalAlignment="Left" 
+        			TextWrapping="Wrap"
+        			Width="380" 
+                    eventToCommand:TapEventToCommand.Command="{Binding MainViewModel.CenterMapOnInviteeCommand, Source={StaticResource ViewModelLocator}}"
+                    eventToCommand:TapEventToCommand.CommandParameter="{Binding Text, ElementName=HiddenInviteeId}"/>
+                    
+        		<TextBlock 
+        			x:Name="HiddenInviteeId"
+        			Text="{Binding id}"
+        			Visibility="Collapsed"/>
+        	</StackPanel>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="InviteeLocationMarkerDataTemplate">
+        	<maptk:Pushpin 
+        		d:DataContext="{Binding Source={d:DesignInstance Type=model:InviteeLocationMarker}}"
+        		GeoCoordinate="{Binding Location}"
+        		Content="{Binding CombinedNameAndDistance}" />
+        </DataTemplate>
+        
+        <Storyboard x:Name="StoryboardSonar">
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="SonarImage">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="85"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:2" Value="-987"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimation Duration="0" To="1.123" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="SonarImage" d:IsOptimized="True"/>
+        	<DoubleAnimation Duration="0" To="-1" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="SonarImage" d:IsOptimized="True"/>
+        </Storyboard>
+        
+        <Storyboard x:Name="ShareUiPanelOpenStoryboard">
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ShareUiPanel">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0.199951"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="ShareUiPanel">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="ShareUiPanel">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<PointAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransformOrigin)" Storyboard.TargetName="ShareUiPanel">
+        		<EasingPointKeyFrame KeyTime="0" Value="0.5,0.5"/>
+        		<EasingPointKeyFrame KeyTime="0:0:0.1" Value="0.5,0.5"/>
+        		<EasingPointKeyFrame KeyTime="0:0:0.5" Value="0.5,0.5"/>
+        	</PointAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)" Storyboard.TargetName="ShareUiPanel">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ShareUiPanel">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="281"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="224.814"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.ZIndex)" Storyboard.TargetName="ShareUiPanel">
+        		<DiscreteObjectKeyFrame KeyTime="0">
+        			<DiscreteObjectKeyFrame.Value>
+        				<System:Int32>1</System:Int32>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        		<DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+        			<DiscreteObjectKeyFrame.Value>
+        				<System:Int32>1</System:Int32>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        		<DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+        			<DiscreteObjectKeyFrame.Value>
+        				<System:Int32>1</System:Int32>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        	</ObjectAnimationUsingKeyFrames>
+        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ShareUiPanel">
+        		<DiscreteObjectKeyFrame KeyTime="0">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Collapsed</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        		<DiscreteObjectKeyFrame KeyTime="0:0:0.1">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Visible</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        		<DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Visible</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        	</ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        
+        <Storyboard x:Name="ShareUiPanelCloseStoryboard">
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="ShareUiPanel">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="266"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="ShareUiPanel">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0"/>
+        	</DoubleAnimationUsingKeyFrames>
+        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(Canvas.ZIndex)" Storyboard.TargetName="ShareUiPanel">
+        		<DiscreteObjectKeyFrame KeyTime="0">
+        			<DiscreteObjectKeyFrame.Value>
+        				<System:Int32>1</System:Int32>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        		<DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+        			<DiscreteObjectKeyFrame.Value>
+        				<System:Int32>1</System:Int32>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        	</ObjectAnimationUsingKeyFrames>
+        	<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ShareUiPanel">
+        		<DiscreteObjectKeyFrame KeyTime="0">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Visible</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        		<DiscreteObjectKeyFrame KeyTime="0:0:0.5">
+        			<DiscreteObjectKeyFrame.Value>
+        				<Visibility>Collapsed</Visibility>
+        			</DiscreteObjectKeyFrame.Value>
+        		</DiscreteObjectKeyFrame>
+        	</ObjectAnimationUsingKeyFrames>
+        </Storyboard>
+        
+        <Storyboard x:Name="StoryboardCurrentLocation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="SonarCurrentLocation">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="30"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1" Value="30">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<CubicEase EasingMode="EaseOut"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
+        	</DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="SonarCurrentLocation">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="30"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1" Value="30">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<CubicEase EasingMode="EaseOut"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
+        	</DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="SonarCurrentLocation">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1" Value="3">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<CubicEase EasingMode="EaseOut"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
+        	</DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="SonarCurrentLocation">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1" Value="3">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<CubicEase EasingMode="EaseOut"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
+        	</DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SonarCurrentLocation">
+        		<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+        		<EasingDoubleKeyFrame KeyTime="0:0:1" Value="0">
+        			<EasingDoubleKeyFrame.EasingFunction>
+        				<CubicEase EasingMode="EaseOut"/>
+        			</EasingDoubleKeyFrame.EasingFunction>
+        		</EasingDoubleKeyFrame>
+        	</DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Name="StoryboardSelectedInvitee">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="SonarSelectedInvitee">
+                <EasingDoubleKeyFrame KeyTime="0" Value="30"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="30">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="30"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="30"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="30">
+                	<EasingDoubleKeyFrame.EasingFunction>
+                		<CubicEase EasingMode="EaseOut"/>
+                	</EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Height)" Storyboard.TargetName="SonarSelectedInvitee">
+                <EasingDoubleKeyFrame KeyTime="0" Value="30"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="30">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="30"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="30"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="30">
+                	<EasingDoubleKeyFrame.EasingFunction>
+                		<CubicEase EasingMode="EaseOut"/>
+                	</EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleX)" Storyboard.TargetName="SonarSelectedInvitee">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="3">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="3">
+                	<EasingDoubleKeyFrame.EasingFunction>
+                		<CubicEase EasingMode="EaseOut"/>
+                	</EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="SonarSelectedInvitee">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="3">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="3">
+                	<EasingDoubleKeyFrame.EasingFunction>
+                		<CubicEase EasingMode="EaseOut"/>
+                	</EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="SonarSelectedInvitee">
+                <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="0.05">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <CubicEase EasingMode="EaseOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:2.1" Value="1"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:3" Value="0.05">
+                	<EasingDoubleKeyFrame.EasingFunction>
+                		<CubicEase EasingMode="EaseOut"/>
+                	</EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+    </phone:PhoneApplicationPage.Resources>
+      
+	<phone:PhoneApplicationPage.FontFamily>
+		<StaticResource ResourceKey="PhoneFontFamilyNormal"/>
+	</phone:PhoneApplicationPage.FontFamily>
+	<phone:PhoneApplicationPage.FontSize>
+		<StaticResource ResourceKey="PhoneFontSizeNormal"/>
+	</phone:PhoneApplicationPage.FontSize>
+	<phone:PhoneApplicationPage.Foreground>
+		<StaticResource ResourceKey="PhoneForegroundBrush"/>
+	</phone:PhoneApplicationPage.Foreground>
+
+    <toolkit:TransitionService.NavigationInTransition>
+        <toolkit:NavigationInTransition>
+            <toolkit:NavigationInTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardIn"/>
+            </toolkit:NavigationInTransition.Backward>
+            <toolkit:NavigationInTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardIn"/>
+            </toolkit:NavigationInTransition.Forward>
+        </toolkit:NavigationInTransition>
+    </toolkit:TransitionService.NavigationInTransition>
+    <toolkit:TransitionService.NavigationOutTransition>
+        <toolkit:NavigationOutTransition>
+            <toolkit:NavigationOutTransition.Backward>
+                <toolkit:TurnstileTransition Mode="BackwardOut"/>
+            </toolkit:NavigationOutTransition.Backward>
+            <toolkit:NavigationOutTransition.Forward>
+                <toolkit:TurnstileTransition Mode="ForwardOut"/>
+            </toolkit:NavigationOutTransition.Forward>
+        </toolkit:NavigationOutTransition>
+    </toolkit:TransitionService.NavigationOutTransition>
+      
+    <!-- Get the relevant ViewModel for this View via the ViewModelLocator -->
+    <phone:PhoneApplicationPage.DataContext>
+        <Binding Source="{StaticResource ViewModelLocator}" Path="MainViewModel" />
+    </phone:PhoneApplicationPage.DataContext>
+    
+    <interactivity:Interaction.Behaviors>
+        <cimbalino:MultiApplicationBarBehavior 
+            IsVisible="{Binding ShowMenuBar, Mode=OneWay}"  
+            SelectedIndex="{Binding AppBarIndexSelector, Mode=OneWay}">
+
+            <!-- Open session. Enable the share (start an Inviter session) and accept/decline invite buttons -->
+            <cimbalino:ApplicationBar Opacity="1" Mode="Minimized" IsMenuEnabled="{Binding OperationHasCompleted, Mode=OneWay}" StateChangedCommand="{Binding MenuStateChangedCommand}" >
+
+                <cimbalino:ApplicationBar.MenuItems>
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_Help, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowHelpCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.ViewAbout, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowAboutViewCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.ViewSettings, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowSettingsViewCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_ToggleMapControlPanel, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowMapControlPanelCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_NewRoundUpPoint, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding StartSetNewRoundUpPointCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_CenterCurrentLocation, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding CenterMapOnDeviceCommand, Mode=OneTime}"/>
+
+                    <!--<cimbalino:ApplicationBarMenuItem 
+                        IsVisible="{Binding IsEmulator, Mode=OneWay}"
+                        Text="Dump" 
+                        Command="{Binding DumpCommand, Mode=OneTime}"/>-->
+                </cimbalino:ApplicationBar.MenuItems>
+
+                <cimbalino:ApplicationBarIconButton 
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding ShowSharePanelCommand, Mode=OneTime}" 
+                    CommandParameter="true"
+                    IconUri="/Assets/share.png" 
+                    Text="{Binding LocalizedResources.MenuItem_Invite, Source={StaticResource LocalizedStrings}}" />
+
+                <cimbalino:ApplicationBarIconButton 
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding StartAcceptInviteCommand, Mode=OneTime}" 
+                    IconUri="/Assets/ApplicationBar.Check.png" 
+                    Text="{Binding LocalizedResources.MenuItem_Accept, Source={StaticResource LocalizedStrings}}" />
+
+                <cimbalino:ApplicationBarIconButton 
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding RefreshCurrentLocationCommand, Mode=OneTime}" 
+                    IconUri="/Assets/refreshLocation.png" 
+                    Text="{Binding LocalizedResources.MenuItem_RefreshLocationShort, Source={StaticResource LocalizedStrings}}" />
+
+                <cimbalino:ApplicationBarIconButton 
+                    IsVisible="{Binding IsTrialMode, Mode=OneWay}" 
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding PurchaseCommand, Mode=OneTime}" 
+                    IconUri="/Assets/purchase.png" 
+                    Text="{Binding LocalizedResources.MenuItem_Purchase, Source={StaticResource LocalizedStrings}}" />
+
+            </cimbalino:ApplicationBar>
+
+            <!-- Inviter session: Enable the cancel button and the invite and new RoundUp point menu items -->
+            <cimbalino:ApplicationBar Opacity="1" Mode="Minimized" IsMenuEnabled="{Binding OperationHasCompleted, Mode=OneWay}" StateChangedCommand="{Binding MenuStateChangedCommand}">
+
+                <cimbalino:ApplicationBar.MenuItems>
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_Help, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowHelpCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.ViewAbout, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowAboutViewCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.ViewSettings, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowSettingsViewCommand, Mode=OneTime}"/>
+                    
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_ToggleMapControlPanel, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowMapControlPanelCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_Directions, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowDirectionsPanelCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_RefreshLocation, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding RefreshCurrentLocationCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_CenterCurrentLocation, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding CenterMapOnDeviceCommand, Mode=OneTime}"/>
+
+                    <!--<cimbalino:ApplicationBarMenuItem 
+                        IsVisible="{Binding IsEmulator, Mode=OneWay}"
+                        Text="Dump" 
+                        Command="{Binding DumpCommand, Mode=OneTime}"/>-->
+
+                </cimbalino:ApplicationBar.MenuItems>
+                
+                <cimbalino:ApplicationBarIconButton 
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding ShowSharePanelCommand, Mode=OneTime}" 
+                    CommandParameter="true"
+                    IconUri="/Assets/share.png" 
+                    Text="{Binding LocalizedResources.MenuItem_Invite, Source={StaticResource LocalizedStrings}}" />
+
+                <cimbalino:ApplicationBarIconButton 
+                    IsVisible="true"
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding CancelSessionCommand, Mode=OneTime}"
+                    IconUri="/Assets/cancel.png" 
+                    Text="{Binding LocalizedResources.MenuItem_Cancel, Source={StaticResource LocalizedStrings}}" />
+
+                <cimbalino:ApplicationBarIconButton 
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding ShowInviteesPanelCommand, Mode=OneTime}" 
+                    IconUri="/Assets/invitees.png" 
+                    Text="{Binding LocalizedResources.MenuItem_ShowInvitees, Source={StaticResource LocalizedStrings}}" />
+
+                <cimbalino:ApplicationBarIconButton 
+                    IsVisible="{Binding IsTrialMode, Mode=OneWay}" 
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding PurchaseCommand, Mode=OneTime}" 
+                    IconUri="/Assets/purchase.png" 
+                    Text="{Binding LocalizedResources.MenuItem_Purchase, Source={StaticResource LocalizedStrings}}" />
+
+            </cimbalino:ApplicationBar>
+            
+            <!-- Invitee session: Enable the cancel acceptance button -->
+            <cimbalino:ApplicationBar Opacity="1" Mode="Minimized" IsMenuEnabled="{Binding OperationHasCompleted, Mode=OneWay}" StateChangedCommand="{Binding MenuStateChangedCommand}">
+
+                <cimbalino:ApplicationBar.MenuItems>
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_Help, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowHelpCommand, Mode=OneTime}"/>
+                    
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.ViewAbout, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowAboutViewCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.ViewSettings, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowSettingsViewCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_ToggleMapControlPanel, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding ShowMapControlPanelCommand, Mode=OneTime}"/>
+
+                    <cimbalino:ApplicationBarMenuItem 
+                        IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                        Text="{Binding LocalizedResources.MenuItem_CenterCurrentLocation, Source={StaticResource LocalizedStrings}}" 
+                        Command="{Binding CenterMapOnDeviceCommand, Mode=OneTime}"/>
+
+                    <!--<cimbalino:ApplicationBarMenuItem 
+                        IsVisible="{Binding IsEmulator, Mode=OneWay}"
+                        Text="Dump" 
+                        Command="{Binding DumpCommand, Mode=OneTime}"/>-->
+
+                </cimbalino:ApplicationBar.MenuItems>
+                
+                <cimbalino:ApplicationBarIconButton 
+                    IsVisible="true"
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding CancelAcceptedInvitationCommand, Mode=OneTime}"
+                    IconUri="/Assets/cancel.png" 
+                    Text="{Binding LocalizedResources.MenuItem_Cancel, Source={StaticResource LocalizedStrings}}" />
+
+                <cimbalino:ApplicationBarIconButton 
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding RefreshCurrentLocationCommand, Mode=OneTime}" 
+                    IconUri="/Assets/refreshLocation.png" 
+                    Text="{Binding LocalizedResources.MenuItem_RefreshLocationShort, Source={StaticResource LocalizedStrings}}" />
+
+                <cimbalino:ApplicationBarIconButton 
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding ShowDirectionsPanelCommand, Mode=OneTime}" 
+                    IconUri="/Assets/directions.png" 
+                    Text="{Binding LocalizedResources.MenuItem_ShowDirections, Source={StaticResource LocalizedStrings}}" />
+
+                <cimbalino:ApplicationBarIconButton 
+                    IsVisible="{Binding IsTrialMode, Mode=OneWay}" 
+                    IsEnabled="{Binding OperationHasCompleted, Mode=OneWay}"
+                    Command="{Binding PurchaseCommand, Mode=OneTime}" 
+                    IconUri="/Assets/purchase.png" 
+                    Text="{Binding LocalizedResources.MenuItem_Purchase, Source={StaticResource LocalizedStrings}}" />
+
+            </cimbalino:ApplicationBar>
+        </cimbalino:MultiApplicationBarBehavior>
+    </interactivity:Interaction.Behaviors>
+    
+	<Grid x:Name="LayoutRoot" Background="Transparent">
+
+        <!-- Animation: Current location sonar -->
+        <es:Arc 
+            x:Name="SonarCurrentLocation" 
+            Visibility="Collapsed"
+            Canvas.ZIndex="1"
+            ArcThicknessUnit="Pixel" 
+            EndAngle="360" 
+            Fill="DarkOrange" 
+            HorizontalAlignment="Left" 
+            Height="30" 
+            Width="30" 
+            Margin="0,0,0,0" 
+            Stretch="None" 
+            StartAngle="0" 
+            UseLayoutRounding="False" 
+            VerticalAlignment="Top" 
+            ArcThickness="3" 
+            RenderTransformOrigin="0.5,0.5">
+        	<es:Arc.RenderTransform>
+        		<CompositeTransform/>
+        	</es:Arc.RenderTransform>
+        </es:Arc>
+
+        <!-- Animation: Currently selected invitee sonar -->
+        <es:Arc 
+            x:Name="SonarSelectedInvitee" 
+            Visibility="Collapsed"
+            Canvas.ZIndex="1"
+            ArcThicknessUnit="Pixel" 
+            EndAngle="360" 
+            Fill="DarkMagenta" 
+            HorizontalAlignment="Left" 
+            Height="30" 
+            Width="30" 
+            Margin="0,0,0,0" 
+            Stretch="None" 
+            StartAngle="0" 
+            UseLayoutRounding="False" 
+            VerticalAlignment="Top" 
+            ArcThickness="3" 
+            RenderTransformOrigin="0.5,0.5">
+            <es:Arc.RenderTransform>
+                <CompositeTransform/>
+            </es:Arc.RenderTransform>
+        </es:Arc>
+
+        <!-- Animation: Share sonar -->
+        <Image 
+			x:Name="SonarImage" 
+			Visibility="{Binding ShowShareUI, Converter={StaticResource Bool2VisibilityConverter}}" 
+			Source="/Assets/sonar.png" 
+			Canvas.ZIndex="1" 
+			Opacity="0.6" 
+			Stretch="Uniform" 
+			RenderTransformOrigin="0.5,0.5" 
+			Margin="0,444,0,-444" >
+            <Image.RenderTransform>
+                <CompositeTransform/>
+            </Image.RenderTransform>
+        </Image>
+        
+        <!-- Logo: shown when the menu/app bar opens, hidden otherwise -->
+        <Border 
+            d:IsHidden="false"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Stretch"
+			Opacity="0.9"  
+            Background="{StaticResource PhoneBackgroundBrush}"
+            Canvas.ZIndex="2"
+            Visibility="{Binding ShowMapLogo, Converter={StaticResource Bool2VisibilityConverter}}">
+            <Image 
+                Source="/Assets/PageMapLogo.png"
+                Stretch="None" 
+                HorizontalAlignment="Left"
+                Margin="15,20,15,15" />
+        </Border>
+            
+        <!-- Progress bar: getting your location -->
+		<Border                                 
+			d:IsHidden="true" 
+			Opacity="0.8" 
+			Background="{StaticResource PhoneBackgroundBrush}" 
+			Canvas.ZIndex="3" 
+			VerticalAlignment="Top" 
+			HorizontalAlignment="Stretch"
+			Visibility="{Binding WaitingForLocationServiceToConnect, Converter={StaticResource Bool2VisibilityConverter}}" >
+			<StackPanel Visibility="{Binding SettingsLocationServicesOn, Converter={StaticResource Bool2VisibilityConverter}}"> 
+				<ProgressBar 
+					d:IsHidden="false" 
+					Foreground="DarkOrange" 
+					IsIndeterminate="True" 
+					Margin="10,20,10,10" />
+
+				<TextBlock 
+					Text="{Binding LocalizedResources.ProgressBarTextConnecting, Source={StaticResource LocalizedStrings}}" 
+					Foreground="DarkOrange" 
+					TextAlignment="Center" 
+					Margin="10,-10,10,10"/>
+			</StackPanel>
+		</Border>
+
+        <!-- Progress bar: general purpose -->
+		<Border
+			d:IsHidden="true" 
+			Opacity="0.8" 
+			Background="{StaticResource PhoneBackgroundBrush}" 
+			Canvas.ZIndex="3" 
+			VerticalAlignment="Top" 
+			HorizontalAlignment="Stretch"
+			Visibility="{Binding ShowProgressBar, Converter={StaticResource Bool2VisibilityConverter}}" >
+			<StackPanel>                               
+				<ProgressBar 
+					d:IsHidden="false" 
+					Foreground="DarkOrange" 
+					IsIndeterminate="True" 
+					Margin="10,20,10,10" />
+
+				<TextBlock 
+					Text="{Binding ProgressBarText}" 
+					Foreground="DarkOrange" 
+					TextAlignment="Center" 
+					Margin="10,-10,10,10"/>
+			</StackPanel>
+		</Border>
+
+        <!-- Text: Prompt shown when the user has turned off location services -->
+		<TextBlock 
+			d:IsHidden="true"
+			Visibility="{Binding SettingsLocationServicesOn, Converter={StaticResource Bool2VisibilityInverterConverter}}"
+			Margin="10,100,10,10"
+			Text="{Binding LocalizedResources.LocationServicesDisabled, Source={StaticResource LocalizedStrings}}"
+			TextAlignment="Center"
+			TextWrapping="Wrap"
+			FontSize="{StaticResource PhoneFontSizeLarge}" />
+
+        <!-- Panel: Share panel -->
+        <Border
+			x:Name="ShareUiPanel"
+			d:IsHidden="false"
+			Opacity="1" 
+            Visibility="Collapsed"
+			Canvas.ZIndex="1" 
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Bottom"
+			Height="250"
+			RenderTransformOrigin="0.5,0.5">
+			<Border.RenderTransform>
+				<CompositeTransform/>
+			</Border.RenderTransform>
+
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+                        
+				<es:Arc 
+					ArcThickness="280" 
+					ArcThicknessUnit="Pixel" 
+					StartAngle="-90" 
+					EndAngle="90" 
+					Opacity="0.8"
+					Fill="{StaticResource PhoneBackgroundBrush}" 
+					HorizontalAlignment="Center" 
+					Height="550" 
+					Grid.RowSpan="5" 
+					Stretch="None" 
+					UseLayoutRounding="False" 
+					VerticalAlignment="Top" 
+					Width="500" 
+					Grid.ColumnSpan="3" 
+					Margin="0,-10,0,0"/>
+
+				<Image 
+					Grid.Row="0" 
+					Grid.Column="1" 
+					Source="/Assets/shareSms.png" 
+					eventToCommand:TapEventToCommand.Command="{Binding InviteCommand}" 
+					eventToCommand:TapEventToCommand.CommandParameter="0"/>
+                        
+				<Image 
+					Grid.Row="3" 
+					Grid.Column="0" 
+					Margin="15,-30,0,0"
+					Width="50"
+					Height="50"
+					Source="/Assets/shareEmail.png" 
+					eventToCommand:TapEventToCommand.Command="{Binding InviteCommand}" 
+					eventToCommand:TapEventToCommand.CommandParameter="1"/>
+                        
+				<Image 
+					Grid.Row="3" 
+					Grid.Column="2" 
+					Margin="-15,-30,0,0"
+					Width="50"
+					Height="50"                            
+					Source="/Assets/clipboard.png"
+					eventToCommand:TapEventToCommand.Command="{Binding InviteCommand}" 
+					eventToCommand:TapEventToCommand.CommandParameter="2"/>                            
+                        
+				<Image 
+					Grid.Row="2" 
+					Grid.Column="1" 
+					Source="/Assets/share.png" />                            
+
+				<TextBlock 
+					Grid.Row="1" 
+					Grid.Column="1" 
+					Text="{Binding LocalizedResources.ShareSms, Source={StaticResource LocalizedStrings}}" 
+					TextAlignment="Center" 
+					VerticalAlignment="Top" 
+					Foreground="DarkOrange"
+					Margin="0,-5,0,0" 
+					eventToCommand:TapEventToCommand.Command="{Binding InviteCommand}" 
+					eventToCommand:TapEventToCommand.CommandParameter="0"/>
+                        
+				<TextBlock 
+					Grid.Row="3" 
+					Grid.Column="0" 
+					Text="{Binding LocalizedResources.ShareEmail, Source={StaticResource LocalizedStrings}}" 
+					TextAlignment="Center" 
+					VerticalAlignment="Top" 
+					Foreground="DarkOrange" 
+					Margin="15,-45,0,0"
+					eventToCommand:TapEventToCommand.Command="{Binding InviteCommand}" 
+					eventToCommand:TapEventToCommand.CommandParameter="1"/>                            
+                        
+				<TextBlock 
+					Grid.Row="3" 
+					Grid.Column="2" 
+					Text="{Binding LocalizedResources.ShareClipboard, Source={StaticResource LocalizedStrings}}" 
+					TextAlignment="Center" 
+					VerticalAlignment="Top" 
+					Foreground="DarkOrange" 
+					Margin="-15,-45,0,0"
+					eventToCommand:TapEventToCommand.Command="{Binding InviteCommand}" 
+					eventToCommand:TapEventToCommand.CommandParameter="2"/>                            
+                        
+				<TextBlock 
+					Grid.Row="4" 
+					Grid.Column="0" 
+					Grid.ColumnSpan="3" 
+					Margin="85,0,0,0"
+					Text="{Binding LocalizedResources.ShareTargetHasRoundUp, Source={StaticResource LocalizedStrings}}" 
+					TextAlignment="Left" 
+					VerticalAlignment="Center" 
+					Foreground="DarkOrange" />
+                        
+				<TextBlock 
+					Grid.Row="2" 
+					Grid.Column="0" 
+					Grid.ColumnSpan="3" 
+					Text="{Binding LocalizedResources.ShareComment, Source={StaticResource LocalizedStrings}}" 
+					TextAlignment="Center" 
+					VerticalAlignment="Bottom" 
+					FontSize="14" Margin="0,0,0,-15" />
+
+				<CheckBox 
+					Grid.Row="3" 
+					Grid.Column="0" 
+					IsChecked="{Binding ShareLocationByInviteCode, Mode=TwoWay}" 
+					Margin="30,0,0,-60" 
+					HorizontalAlignment="Left" 
+					VerticalAlignment="Bottom"/>
+			</Grid>
+		</Border>
+
+        <!-- Panel: Map controls -->
+        <Border
+			d:IsHidden="true"
+			Opacity="1" 
+			Background="{StaticResource PhoneBackgroundBrush}" 
+			Canvas.ZIndex="2" 
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Bottom"
+			Height="250"
+			Visibility="{Binding ShowMapControlPanel, Converter={StaticResource Bool2VisibilityConverter}}">
+
+            <ScrollViewer>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width=".6*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition Height="100"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock 
+						Grid.Row="1"
+						Grid.Column="0"
+						Text="{Binding LocalizedResources.MapCtrlPanel_Zoom, Source={StaticResource LocalizedStrings}}" 
+						Margin="20,10,10,10"
+						VerticalAlignment="Center"/>
+
+                    <Slider 
+						Grid.Row="1"
+						Grid.Column="1"
+						Minimum="1"
+						Maximum="20"
+						SmallChange="1"
+						Margin="10,0,10,-25"
+						VerticalAlignment="Center"
+						Value="{Binding MapZoomLevel, Mode=TwoWay}"/>
+
+                    <TextBlock 
+						Grid.Row="2"
+						Grid.Column="0"
+						Text="{Binding LocalizedResources.MapCtrlPanel_Pitch, Source={StaticResource LocalizedStrings}}" 
+						Margin="20,10,10,10"
+						VerticalAlignment="Center"/>
+
+                    <Slider 
+						Grid.Row="2"
+						Grid.Column="1"
+						Minimum="0"
+						Maximum="75"
+						SmallChange="1"
+						Margin="10,0,10,-25"
+						VerticalAlignment="Center"
+						Value="{Binding MapPitch, Mode=TwoWay}"/>
+
+                    <TextBlock 
+						Grid.Row="3"
+						Grid.Column="0"
+						Text="{Binding LocalizedResources.MapCtrlPanel_Heading, Source={StaticResource LocalizedStrings}}" 
+						Margin="20,10,10,10"
+						VerticalAlignment="Center"/>
+
+                    <Slider 
+						Grid.Row="3"
+						Grid.Column="1"
+						Minimum="0"
+						Maximum="360"
+						SmallChange="1"
+						Margin="10,0,10,-25"
+						VerticalAlignment="Center"
+						Value="{Binding MapHeading, Mode=TwoWay}"/>
+
+                    <TextBlock 
+						Grid.Row="4"
+						Grid.Column="0"
+						Text="{Binding LocalizedResources.MapCtrlPanel_Landmarks, Source={StaticResource LocalizedStrings}}" 
+						Margin="20,10,10,10"
+						VerticalAlignment="Center"/>
+
+                    <toolkit:ToggleSwitch 
+						Grid.Row="4"
+						Grid.Column="1"
+						Margin="10,0,10,-20"
+						IsChecked="{Binding MapLandmarksOn, Mode=TwoWay}"/>
+
+                    <TextBlock 
+						Grid.Row="5"
+						Grid.Column="0"
+						Text="{Binding LocalizedResources.MapCtrlPanel_PedestrianFeatures, Source={StaticResource LocalizedStrings}}" 
+						Margin="20,10,10,10"
+						TextWrapping="Wrap"
+						VerticalAlignment="Center"/>
+
+                    <toolkit:ToggleSwitch 
+						Grid.Row="5"
+						Grid.Column="1"
+						Margin="10,0,10,-20"                                        
+						IsChecked="{Binding MapPedestrianFeaturesOn, Mode=TwoWay}"/>
+
+                    <TextBlock 
+						Grid.Row="6"
+						Grid.Column="0"
+						Text="{Binding LocalizedResources.MapCtrlPanel_DaylightMode, Source={StaticResource LocalizedStrings}}" 
+						Margin="20,10,10,10"
+						TextWrapping="Wrap"
+						VerticalAlignment="Center"/>
+
+                    <toolkit:ToggleSwitch 
+						Grid.Row="6"
+						Grid.Column="1"
+						Margin="10,0,10,-20"                                        
+						IsChecked="{Binding MapDayNightColorMode, Converter={StaticResource Bool2ColorModeConverter}, Mode=TwoWay}"/>
+
+                    <TextBlock 
+						Grid.Row="7"
+						Grid.Column="0"
+						Text="{Binding LocalizedResources.MapCtrlPanel_ViewMode, Source={StaticResource LocalizedStrings}}" 
+						Margin="20,10,10,10"
+						TextWrapping="Wrap"
+						VerticalAlignment="Center"/>
+
+                    <StackPanel Grid.Row="7" Grid.Column="1">
+                        <RadioButton 
+							Content="{Binding LocalizedResources.MapViewMode_Road, Source={StaticResource LocalizedStrings}}"
+							Margin="10,0,10,-20"
+							IsChecked="{Binding MapMode, Converter={StaticResource Bool2MapRoadConverter}, Mode=OneWay}"
+							Command="{Binding MapCartographicConverterCommand, Mode=OneTime}"
+							CommandParameter="0"/>
+
+                        <RadioButton 
+							Content="{Binding LocalizedResources.MapViewMode_Aerial, Source={StaticResource LocalizedStrings}}"
+							Margin="10,0,10,-20"
+							IsChecked="{Binding MapMode, Converter={StaticResource Bool2MapAerialConverter}, Mode=OneWay}"
+							Command="{Binding MapCartographicConverterCommand, Mode=OneTime}"
+							CommandParameter="1"/>
+
+                        <RadioButton 
+							Content="{Binding LocalizedResources.MapViewMode_Terrain, Source={StaticResource LocalizedStrings}}"
+							Margin="10,0,10,-20"
+							IsChecked="{Binding MapMode, Converter={StaticResource Bool2MapTerrainConverter}, Mode=OneWay}"
+							Command="{Binding MapCartographicConverterCommand, Mode=OneTime}"
+							CommandParameter="2"/>
+
+                        <RadioButton 
+							Content="{Binding LocalizedResources.MapViewMode_Hybrid, Source={StaticResource LocalizedStrings}}"
+							Margin="10,0,10,-20"
+							IsChecked="{Binding MapMode, Converter={StaticResource Bool2MapHybridConverter}, Mode=OneWay}"
+							Command="{Binding MapCartographicConverterCommand, Mode=OneTime}"
+							CommandParameter="3"/>
+                    </StackPanel>
+
+                    <!-- Spacer -->
+                    <TextBlock Grid.Row="8" Grid.Column="1"/>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+                
+        <!-- Panel: Accept invite -->
+        <Border
+            d:IsHidden="true"
+            Opacity="1" 
+			Background="{StaticResource PhoneBackgroundBrush}" 
+			Canvas.ZIndex="2" 
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Bottom"
+            Visibility="{Binding ShowAcceptInviteUI, Converter={StaticResource Bool2VisibilityConverter}}"
+			Height="360">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="180"/>
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+
+                <TextBlock 
+				    Grid.Row="0"
+				    TextWrapping="Wrap" 
+                    Margin="10"
+				    Text="{Binding LocalizedResources.AcceptInvitePrompt, Source={StaticResource LocalizedStrings}}"/>
+
+                <!-- Invite code entry -->
+                <TextBox 
+				    Grid.Row="1" 
+				    FontSize="20"
+				    TextWrapping="Wrap" 
+				    Text="{Binding InviteCodeText, Mode=TwoWay}"
+				    Height="175"/>
+
+                <!-- Accept buttons -->
+                <StackPanel 
+				    Grid.Row="2"
+				    Orientation="Horizontal" 
+				    HorizontalAlignment="Center" 
+				    VerticalAlignment="Top">
+
+                    <!-- Accept invite (walk) -->
+                    <Button 
+					    Width="100" 
+					    Height="100" 
+					    Command="{Binding CompleteAcceptInviteCommand, Mode=OneTime}" 
+					    CommandParameter="walk" >
+                        <Button.Background>
+                            <ImageBrush 
+							    Stretch="UniformToFill" 
+							    ImageSource="/Assets/walk.png" />
+                        </Button.Background>
+                    </Button>
+
+                    <!-- Accept invite (drive) -->
+                    <Button 
+					    Width="100" 
+					    Height="100" 
+					    Command="{Binding CompleteAcceptInviteCommand, Mode=OneTime}"
+					    CommandParameter="drive">
+                        <Button.Background>
+                            <ImageBrush 
+							    Stretch="UniformToFill" 
+							    ImageSource="/Assets/drive.png" />
+                        </Button.Background>
+                    </Button>
+
+                    <!-- Cancel the accept invite form -->
+                    <Button 
+					    Width="100" 
+					    Height="100"
+					    Command="{Binding CancelAcceptInviteCommand, Mode=OneTime}">
+                        <Button.Background>
+                            <ImageBrush 
+							    Stretch="UniformToFill" 
+							    ImageSource="/Assets/cancel.png" />
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Panel: Invitees -->
+        <Border                     
+            d:IsHidden="false"
+            Opacity="1" 
+			Background="{StaticResource PhoneBackgroundBrush}" 
+			Canvas.ZIndex="2" 
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Bottom"
+            Visibility="{Binding ShowInviteesUI, Converter={StaticResource Bool2VisibilityConverter}}"
+			Height="200">
+            <ListBox 
+				HorizontalAlignment="Left"
+				ItemsSource="{Binding Source={StaticResource InviteeMarkersItemSource}}" 
+				ItemTemplate="{StaticResource InviteesDataTemplate}" />
+        </Border>
+                
+        <!-- Panel: Directions -->
+        <Border                     
+            d:IsHidden="false"
+            Opacity="1" 
+			Background="{StaticResource PhoneBackgroundBrush}" 
+			Canvas.ZIndex="2" 
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Bottom"
+            Visibility="{Binding ShowDirectionsUI, Converter={StaticResource Bool2VisibilityConverter}}"
+			Height="200">
+                
+            <ListBox 
+                Margin="5"
+                VerticalAlignment="Top" 
+                FontSize="24"
+                Foreground="DarkOrange"
+                ItemsSource="{Binding RouteInstructions}"
+                eventToCommand:SelectionEventToCommand.Command="{Binding RouteWaypointSelectedCommand}"
+                eventToCommand:SelectionEventToCommand.CommandParameter="{Binding RelativeSource={RelativeSource Self}, Path=SelectedIndex}" />
+        </Border>
+
+        <!-- Map -->
+        <controls:Map 
+			x:Name="LocationMap" 
+			eventToCommand:MapLoadedEventToCommand.Command="{Binding MapLoadedCommand}"
+			Center="{Binding MapCenterLocation, Mode=TwoWay}"
+			Margin="0" 
+			ZoomLevel="{Binding MapZoomLevel, Mode=TwoWay}" 
+			Pitch="{Binding MapPitch, Mode=TwoWay}"
+			Heading="{Binding MapHeading, Mode=TwoWay}"
+			LandmarksEnabled="{Binding MapLandmarksOn, Mode=TwoWay}"
+			PedestrianFeaturesEnabled="{Binding MapPedestrianFeaturesOn, Mode=TwoWay}"
+			ColorMode="{Binding MapDayNightColorMode, Mode=TwoWay}"
+			CartographicMode="{Binding MapMode, Mode=TwoWay}"
+			Visibility="{Binding SettingsLocationServicesOn, Converter={StaticResource Bool2VisibilityConverter}}"
+			Tap="LocationMapOnTap" 
+			Hold="LocationMapOnHold">
+            <maptk:MapExtensions.Children>
+
+                <!--The device's current location-->
+                <maptk:UserLocationMarker                                 
+					x:Name="MeLocationMarker" 
+					d:IsHidden="true"
+					GeoCoordinate="{Binding CurrentLocation}"/>
+
+                <!--
+                The roundup location. Always shown for invitees. Shown for inviters
+                if the inviter's current location is NOT the roundup location
+                -->
+                <maptk:Pushpin 
+					x:Name="RoundUpLocationPushPin"
+					d:IsHidden="true"
+					Content="{Binding RoundUpPointInfo.CombinedTextAddressAndDistance}" 
+					Visibility="{Binding ShowRoundUpPointLocation, Converter={StaticResource Bool2VisibilityConverter}}"
+					GeoCoordinate="{Binding RoundUpPointInfo.Location}"/>
+
+                <!--Collection of invitee markers. Only shown for inviters-->
+                <maptk:MapItemsControl 
+					ItemsSource="{Binding Source={StaticResource InviteeMarkersItemSource}}" 
+					ItemTemplate="{StaticResource InviteeLocationMarkerDataTemplate}"/>
+            </maptk:MapExtensions.Children>
+        </controls:Map>
+	</Grid>
+</phone:PhoneApplicationPage>

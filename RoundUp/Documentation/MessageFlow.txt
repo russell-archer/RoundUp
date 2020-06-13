@@ -1,0 +1,46 @@
+﻿
+ +_____ RequestMessageId ____+_________ RoundUpService _________+_____________ MPNS _____________+_________________ Azure Mobile Services ______________________+  
+ |                           |                                  |                                |                                                              |
+ | SessionStart              | Inviter's device                 |                                |                                                              |
+ |                           |   RegisterAsInviter ------------------------------------------------> Session Insert script                                      |
+ |                           |                                  |                                |     Set row SessionStatusId = SessionStarted                 |
+ |                           |                                  | Inviter's device               |                                                              |
+ |                           |                                  |   OnHtppNotificationReceived <------ Notification:                                            |
+ |                           |                                  |                                |       MessageId : SessionStarted                             |
+ +______________________________________________________________________________________________________________________________________________________________+
+ |                           |                                  |                                |                                                              |
+ | InviteeJoin               | Invitee's device                 |                                |                                                              |
+ |                           |   RegisterAsInvitee ------------------------------------------------> Invitee Insert script                                      |
+ |                           |                                  |                                |     Get session row for sid                                  |
+ |                           |                                  |                                |       Found 1 session where SessionStarted or SessionActive  |
+ |                           |                                  |                                |       and InviterShortDeviceId matches session dev code?     |
+ |                           |   Error handling <------------------------------------------------------- No (BAD_REQUEST)                                       |
+ |                           |                                  |                                |     Set row InviteeStatusId = InviteeHasAccepted             |
+ |                           |                                  |                                |     Update the Session row:                                  |
+ |                           |                                  |                                |       SessionStatusId = SessionStatusValue.SessionActive     |
+ |                           |                                  | Invitee's device               |       RequestMessageId = RoundUpRequestMessage.InviteeJoin   |
+ |                           |                                  |   OnHttpNotificationReceived <------ Notification                                             |
+ |                           |                                  |                                |       MessageId : InviteeHasAccepted                         |
+ |                           |                                  | Inviter's device               |       Data      : (invitee name/alias)                       |
+ |                           |                                  |   OnHttpNotificationReceived <------ Notification                                             |
+ |                           |                                  |                                |       MessageId : InviteeHasAccepted                         |
+ |                           |                                  |                                |       Data      : (invitee name/alias)                       |
+ +______________________________________________________________________________________________________________________________________________________________+
+ |                           |                                  |                                |                                                              |
+ | InviteeLocationUpdate     | Invitee's device                 |                                |                                                              |
+ |                           |   UpdateInviteeLocation --------------------------------------------> Invitee Update script                                      |
+ |                           |                                  |                                |     Set row Latitude/Longitude to new location coords        |
+ |                           |                                  |                                |     Get session row for sid (need inviter's channel uri)     |
+ |                           |                                  |                                |       Found 1 session where SessionStarted or SessionActive  |
+ |                           |                                  |                                |       and InviterShortDeviceId matches session dev code?     |
+ |                           |   Error handling <------------------------------------------------------- No (BAD_REQUEST)                                       |
+ |                           |                                  | Inviter's device               |                                                              |
+ |                           |                                  |   OnHttpNotificationReceived <------ Notification                                             |
+ |                           |                                  |                                |       MessageId : InviteeLocationUpdate                      |
+ |                           |                                  |                                |       InviteeId : (invitee's id)                             |
+ |                           |                                  |                                |       Data      : (invitee name/alias)                       |
+ |                           |                                  |                                |       Latitude  : (invitee's new latitude)                   |
+ |                           |                                  |                                |       Longitude : (invitee's new longitude)                  |
+ +______________________________________________________________________________________________________________________________________________________________+
+
+
