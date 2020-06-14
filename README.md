@@ -4,7 +4,7 @@ Windows Phone 8 Geolocation App
 
 **Archived Visual Studio 2013 project that was previously held in Team Foundation Server.**
 
-**Having been available free from the Windows app store since September 2013, as of May 21st 2016 this app has been removed from the Windows app store.**
+**Having been available free from the Windows app store since September 2013, as from May 21st 2016 this app was removed from the Windows app store.**
 
 ![](./readme-assets/r1.png)
 
